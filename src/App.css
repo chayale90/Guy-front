@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+  font-family: 'Fb Optimum';
+  src: url('/path/to/font/Fb-Optimum.woff2') format('woff2'),
+    url('/path/to/font/Fb-Optimum.woff') format('woff') !important;
+  font-weight: normal;
+  font-style: normal !;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 18px; /* Base font size */
+  /* Base line height */
+  scroll-behavior: smooth; /* Smooth scrolling */
+}
+
+body {
+  background-color: white;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Fb Optimum', sans-serif;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* LOADER */
+
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.293
+  ); /* Black background with 50% opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Ensure it covers everything else */
+}
+
+.loader {
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #000; /* Black */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.scroll {
+  width: 100%;
+  height: 400px;
+  overflow-y: scroll !important;
+  scrollbar-color: #fbbf24 #fff !important;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  scrollbar-color: #fbbf24 #fff !important;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #fbbf24;
+  border-radius: 10px;
+  border: 3px solid #fff;
+}
+
+.collapsible {
+  transition: max-height 0.3s ease-out;
+  overflow: hidden;
+}
+
+.collapsed {
+  max-height: 0;
+}
+
+.expanded {
+  max-height: 500px; /* Adjust as needed */
+}
+.categoryCards {
+  box-shadow: 0px 0.8816567659378052px 4.408283710479736px rgba(0, 0, 0, 0.25);
+  border-radius: 18.51px !important;
+}
