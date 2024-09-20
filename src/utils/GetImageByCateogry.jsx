@@ -5,7 +5,7 @@ import oilImage from '../../public/images/oil.webp';
 import fruitsImage from '../../public/images/fruits.webp';
 import meatImage from '../../public/images/meat.webp';
 import milkImage from '../../public/images/milk.webp';
-import logo from '../../public/images/גיא לוי לוגו עם כל תיקוני הצבע רקע שקוף 2.png';
+import logo from '../../public/images/גיא לוי עם כל תיקוני הצבע לוגו.png';
 
 
 const imagesToPreload = [
