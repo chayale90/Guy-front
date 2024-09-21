@@ -11,26 +11,26 @@ const AdminUsersTable = ({ users, setUsers }) => {
 
     const [loadingUserIds, setLoadingUserIds] = useState([]);
 
-    const handleBlock = useCallback(async (userId) => {
-        setLoadingUserIds((prev) => [...prev, userId]);
+    const handleBlockToggle = useCallback(async (user) => {
+        setLoadingUserIds(prev => [...prev, user._id]);
         try {
-            const response = await updateDataToServer(`/users/admin/deactivate/${userId}`);
+            const response = await updateDataToServer(`/users/admin/toggleUserActiveStatus/${user._id}`);
             const updatedUser = response.user;
             if (updatedUser) {
-
-                setUsers((prevUsers) =>
-                    prevUsers.map(user =>
-                        user._id === updatedUser._id ? { ...user, isActive: updatedUser.isActive } : user
+                setUsers(prevUsers =>
+                    prevUsers.map(u => 
+                        u._id === updatedUser._id ? { ...u, isActive: updatedUser.isActive } : u
                     )
                 );
-                toast.success('משתמש נחסם בהצלחה');
+                toast.success(`משתמש ${updatedUser.isActive ? 'פעיל' : 'נחסם'} בהצלחה`);
             }
         } catch (error) {
-            toast.error('Failed to block user. Please try again.');
+            toast.error('Failed to toggle user status. Please try again.');
         } finally {
-            setLoadingUserIds((prev) => prev.filter(id => id !== userId));
+            setLoadingUserIds(prev => prev.filter(id => id !== user._id));
         }
     }, [setUsers]);
+    
 
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -65,14 +65,15 @@ const AdminUsersTable = ({ users, setUsers }) => {
                                             <Loader />
                                         ) : (
                                             user.isActive ? (
-                                                <button type='button' className="font-medium text-blue-600" onClick={() => handleBlock(user._id)}>
+                                                <button type='button' className="font-medium text-blue-600" onClick={() => handleBlockToggle(user)}>
                                                     חסום משתמש
                                                 </button>
                                             ) : (
-                                                <span className="font-medium text-red-600">
-                                                    משתמש חסום
-                                                    <i className="fa-solid fa-ban m-1"></i>
-                                                </span>
+                                                <button type='button' className="font-medium text-red-600" onClick={() => handleBlockToggle(user)}>
+                                                 משתמש חסום
+                                                <i className="fa-solid fa-ban m-1"></i>
+                                            </button>
+                                            
                                             )
                                         )}
                                     </td>
