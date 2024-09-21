@@ -5,7 +5,8 @@ import CategoryCards from '../../components/Food/CategoryCards';
 import './HomePage.css'
 import TableProductsTable from '../../components/Food/TableProductsTable';
 import { preloadImages } from '../../utils/GetImageByCateogry';
-
+import { Link } from 'react-router-dom'
+import { RiGlobalLine } from "react-icons/ri";
 
 const HomePage = () => {
     const [foodList, setFoodList] = useState([]);
@@ -129,6 +130,13 @@ const HomePage = () => {
                     <CategoryCards categoriesList={foodCategory} isLoading={isLoading} />
                 )}
             </div>
+             {/* Footer section */}
+             <footer className="w-full mt-10 bg-white p-4 text-center">
+                <Link to={'https://www.guyl.co.il'} target='_blank' className='flex justify-center items-center text-custom-blue text-[18.33px] font-Assistant font-bold'>
+                    <p className='underline decoration-[#443eeacc] decoration-1 underline-offset-[2px]'>לאתר הבית של גיא</p>
+                   {" "}  <RiGlobalLine />
+                </Link>
+            </footer>
         </>
 
     )
