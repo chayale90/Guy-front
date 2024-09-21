@@ -1,11 +1,11 @@
-import vegetablesImage from '../../public/images/vegetables.webp';
-import cerealsImage from '../../public/images/cereals.webp';
-import snackingImage from '../../public/images/snacking.webp';
-import oilImage from '../../public/images/oil.webp';
-import fruitsImage from '../../public/images/fruits.webp';
-import meatImage from '../../public/images/meat.webp';
-import milkImage from '../../public/images/milk.webp';
-import logo from '../../public/images/גיא לוי עם כל תיקוני הצבע לוגו.png';
+import vegetablesImage from '/images/vegetables.webp';
+import cerealsImage from '/images/cereals.webp';
+import snackingImage from '/images/snacking.webp';
+import oilImage from '/images/oil.webp';
+import fruitsImage from '/images/fruits.webp';
+import meatImage from '/images/meat.webp';
+import milkImage from '/images/milk.webp';
+import logo from '/images/גיא לוי עם כל תיקוני הצבע לוגו.png';
 
 
 const imagesToPreload = [

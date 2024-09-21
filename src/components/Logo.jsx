@@ -1,4 +1,4 @@
-import FoodLogo from '../../public/images/guy_levi_logo.webp';
+import FoodLogo from '/images/guy_levi_logo.webp';
 
 const Logo = () => {
     return (
