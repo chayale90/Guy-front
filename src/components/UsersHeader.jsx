@@ -52,7 +52,7 @@ const UsersHeader = ({ foodList, setFoodList, setIsSearching, clearSearch }) => 
                     name="search"
                     value={searchInput}
                     onChange={handleSearch}
-                    placeholder="חיפוש מוצר"
+                    placeholder="        חיפוש מוצר"
                     className="bg-white md:w-64 lg:w-72 w-full p-1 rounded-full px-8 text-[16px] border border-[#D9D9D9] lg:text-[20px] text-black font-normal focus:outline-none font-Assistant lg:placeholder:text-[#D9D9D9] lg:placeholder:font-extralight placeholder:text-[#D9D9D9] placeholder:font-Assistant"
                     autoComplete="off"
                     spellCheck="false"
