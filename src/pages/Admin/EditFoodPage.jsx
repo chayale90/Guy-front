@@ -107,7 +107,6 @@ const EditFoodPage = () => {
                                     placeholder="גרם למנה"
                                     value={food.calories}
                                     onChange={handleChange}
-                                    required
                                 />
                             </div>
                             <div>
@@ -118,7 +117,6 @@ const EditFoodPage = () => {
                                     placeholder="יחידות"
                                     value={food.unitsOfFood}
                                     onChange={handleChange}
-                                    required
                                 />
                             </div>
                             <button type="submit" className="w-full text-white bg-custom-blue hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-Assistant rounded-lg text-[18px] px-5 py-2.5 text-center">ערוך מאכל</button>
