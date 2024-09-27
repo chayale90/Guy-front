@@ -71,7 +71,7 @@ const TableProductsTable = ({ foodList, setFoodList, filteredFoodList, searchInp
                                     scope="row"
                                     className="px-4 py-2 text-black font-Assistant font-normal text-[16px] break-words"
                                 >
-                                    {food.calories} ג׳
+                                    {food.calories ? `${food.calories} ג׳` : ""}
                                 </th>
                                 <th
                                     scope="row"
