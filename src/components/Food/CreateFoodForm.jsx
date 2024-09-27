@@ -102,7 +102,6 @@ const CreateFoodForm = () => {
                                     placeholder="גרם למנה"
                                     value={formData.calories}
                                     onChange={handleChange}
-                                    required
                                 />
                             </div>
                             <div>
@@ -113,7 +112,6 @@ const CreateFoodForm = () => {
                                     placeholder="יחידות"
                                     value={formData.unitsOfFood}
                                     onChange={handleChange}
-                                    required
                                 />
                             </div>
                             <button type="submit" className="w-full text-white bg-custom-blue hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-[18px] font-Assistant px-5 py-2.5 text-center">צור מאכל </button>
