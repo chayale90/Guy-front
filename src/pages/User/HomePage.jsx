@@ -17,6 +17,16 @@ const HomePage = () => {
     const [isSearching, setIsSearching] = useState(false);
     const [clearSearch, setClearSearch] = useState(false);
 
+    const customOrder = [
+        'חלב מוצריו ותחליפיו',
+        'דגנים וקטניות',
+        'עוף בשר דגים ותחליפי חלבון מן הצומח',
+        'שומנים',
+        'ירקות',
+        'פירות',
+        'נשנושים',
+    ];
+
 
     useEffect(() => {
         preloadImages();
@@ -43,7 +53,12 @@ const HomePage = () => {
         const fetchData = async () => {
             setIsLoading(true);
             try {
-                const response = await getDataFromServer('/food/category');
+                let response = await getDataFromServer('/food/category');
+                response = response.sort((a, b) => {
+                    const indexA = customOrder.indexOf(a.category);
+                    const indexB = customOrder.indexOf(b.category);
+                    return (indexA === -1 ? customOrder.length : indexA) - (indexB === -1 ? customOrder.length : indexB);
+                });
                 setFoodCategory(response);
                 setIsLoading(false);
             } catch (error) {
@@ -57,22 +72,20 @@ const HomePage = () => {
 
 
     useEffect(() => {
-        if (isSearching) {
-            const fetchFoodList = async () => {
-                setIsLoading(true);
-                try {
-                    const response = await getDataFromServer('/food/foodList');
-                    setFoodList(response);
-                    setFilteredFoodList(response);
-                    setIsLoading(false);
-                } catch (error) {
-                    console.error(error);
-                    setIsLoading(false);
-                }
-            };
-            fetchFoodList();
-        }
-    }, [isSearching]);
+        const fetchFoodList = async () => {
+            setIsLoading(true);
+            try {
+                const response = await getDataFromServer('/food/foodList');
+                setFoodList(response);
+                setFilteredFoodList(response);
+                setIsLoading(false);
+            } catch (error) {
+                console.error(error);
+                setIsLoading(false);
+            }
+        };
+        fetchFoodList();
+    }, []);
 
     const handleBackToHome = () => {
         setIsSearching(false);
@@ -130,11 +143,11 @@ const HomePage = () => {
                     <CategoryCards categoriesList={foodCategory} isLoading={isLoading} />
                 )}
             </div>
-             {/* Footer section */}
-             <footer className="w-full mt-10 bg-white p-4 text-center">
+            {/* Footer section */}
+            <footer className="w-full mt-10 bg-white p-4 text-center">
                 <Link to={'https://www.guyl.co.il'} target='_blank' className='flex justify-center items-center text-custom-blue text-[18.33px] font-Assistant font-bold'>
                     <p className='underline decoration-[#443eeacc] decoration-1 underline-offset-[2px]'>לאתר הבית של גיא</p>
-                   {" "}  <RiGlobalLine />
+                    {" "}  <RiGlobalLine />
                 </Link>
             </footer>
         </>

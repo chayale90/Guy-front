@@ -41,7 +41,7 @@ export const calculateCalories = (categoryName, calories) => {
         return caloriesForFood.toFixed(0);
     }
     else if (categoryName === 'נשנושים') {
-        const caloriesForFood = 10000 / calories;
+        const caloriesForFood = 20000 / calories;
         return caloriesForFood.toFixed(0);
     }
     else if (categoryName === 'פירות') {

@@ -23,7 +23,12 @@ const CategoryPage = ({ }) => {
             const fetchFilteredFood = async () => {
                 setIsLoading(true);
                 try {
-                    const filteredFood = await getDataFromServer(`/food/foodlist?category=${decodedCategory}`);
+                    let filteredFood = await getDataFromServer(`/food/foodlist?category=${decodedCategory}`);
+                    filteredFood = filteredFood.sort((a, b) => {
+                        const nameA = a.name.replace(/[\s-]/g, '');
+                        const nameB = b.name.replace(/[\s-]/g, '');
+                        return nameA.localeCompare(nameB, 'he', { sensitivity: 'base', ignorePunctuation: true });
+                    });
                     setFoodList(filteredFood);
                     setIsLoading(false);
                 } catch (error) {
@@ -42,8 +47,10 @@ const CategoryPage = ({ }) => {
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true);
+
             try {
-                const response = await getDataFromServer('/food/category');
+                let response = await getDataFromServer('/food/category');
+
                 setCategories(response);
                 setIsLoading(false);
             } catch (error) {
