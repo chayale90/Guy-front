@@ -36,13 +36,12 @@ const UsersHeader = ({ foodList, setFoodList, setIsSearching, clearSearch }) => 
         } else {
             setIsSearching(true);
             const filteredList = foodList.filter(food =>
-                food.name.toLowerCase().includes(searchTerm)
+                food.name.toLowerCase().startsWith(searchTerm)
             );
             setFoodList(filteredList);
             setNoResults(filteredList.length === 0);
         }
     };
-
     return (
         <section className="mt-5 ">
             <div className="relative flex flex-col md:flex-row items-center" dir='rtl'>
