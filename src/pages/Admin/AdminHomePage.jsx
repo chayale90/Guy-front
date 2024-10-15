@@ -14,7 +14,12 @@ const AdminHomePage = () => {
         const fetchData = async () => {
             setIsLoading(true);
             try {
-                const response = await getDataFromServer('/food/foodlist');
+                let response = await getDataFromServer('/food/foodlist');
+                response = response.sort((a, b) => {
+                    const nameA = a.name.replace(/[\s-]/g, '');
+                    const nameB = b.name.replace(/[\s-]/g, '');
+                    return nameA.localeCompare(nameB, 'he', { sensitivity: 'base', ignorePunctuation: true });
+                });
                 setFoodList(response);
                 setFilteredFoodList(response);
                 setIsLoading(false);
@@ -40,7 +45,6 @@ const AdminHomePage = () => {
             setFilteredFoodList(filteredList);
         }
     };
-
 
 
     return (

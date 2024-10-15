@@ -7,6 +7,7 @@ import Loader from '../../components/Loader';
 import WhatsUppButton from '../../components/Form/WhatsUppButton';
 import HeaderFormLogin from '../../components/Form/HeaderFormLogin';
 import GoogleButton from '../../components/Form/GoogleButton';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -17,6 +18,7 @@ const Login = () => {
         password: '',
     });
     const [isLoading, setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (event) => {
@@ -52,6 +54,10 @@ const Login = () => {
         window.location.href = `${baseURL}/users/google`;
     };
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(prevState => !prevState);
+    }
+
 
     return (
         <div className="relative flex h-screen lg:items-center lg:min-h-screen md:min-h-screen justify-center bg-white lg:bg-custom-categoryImage md:bg-custom-categoryImage md:bg-cover md:bg-center lg:bg-cover lg:bg-center">
@@ -83,9 +89,9 @@ const Login = () => {
                                     required
                                 />
                             </div>
-                            <div>
+                            <div className='relative'>
                                 <FormInput
-                                    type="password"
+                                    type={showPassword ? 'text' : 'password'}
                                     name="password"
                                     className="text-[16px] border font-Assistant border-gray-300 text-black placeholder:font-light rounded-full block w-full p-2 placeholder:text-[#B5B5B5] placeholder:font-Assistant"
                                     placeholder="סיסמא"
@@ -93,6 +99,13 @@ const Login = () => {
                                     onChange={handleChange}
                                     required
                                 />
+                                <button
+                                    type="button"
+                                    className="absolute inset-y-0 end-0 px-3 flex items-center text-gray-600"
+                                    onClick={togglePasswordVisibility}
+                                >
+                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                </button>
                             </div>
                             <button type="submit" className="w-full text-white text-[20px] font-bold bg-custom-blue focus:outline-none rounded-full px-5 font-Assistant py-2">כניסה</button>
                         </form>
