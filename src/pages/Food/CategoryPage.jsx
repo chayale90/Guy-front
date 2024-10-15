@@ -47,10 +47,8 @@ const CategoryPage = ({ }) => {
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true);
-
             try {
                 let response = await getDataFromServer('/food/category');
-
                 setCategories(response);
                 setIsLoading(false);
             } catch (error) {
