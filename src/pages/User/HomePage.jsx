@@ -17,14 +17,15 @@ const HomePage = () => {
     const [isSearching, setIsSearching] = useState(false);
     const [clearSearch, setClearSearch] = useState(false);
 
-    const customOrder = [
-        'חלב מוצריו ותחליפיו',
-        'דגנים וקטניות',
-        'עוף בשר דגים ותחליפי חלבון מן הצומח',
-        'שומנים',
-        'ירקות',
-        'פירות',
-        'נשנושים',
+
+    const categories = [
+        { category: 'חלב מוצריו ותחליפיו', id: 1 },
+        { category: 'דגנים וקטניות', id: 2 },
+        { category: 'עוף בשר דגים ותחליפי חלבון מן הצומח', id: 3 },
+        { category: 'שומנים', id: 4 },
+        { category: 'ירקות', id: 5 },
+        { category: 'פירות', id: 6 },
+        { category: 'נשנושים', id: 6 },
     ];
 
 
@@ -50,24 +51,12 @@ const HomePage = () => {
     }, []);
 
     useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true);
-            try {
-                let response = await getDataFromServer('/food/category');
-                response = response.sort((a, b) => {
-                    const indexA = customOrder.indexOf(a.category);
-                    const indexB = customOrder.indexOf(b.category);
-                    return (indexA === -1 ? customOrder.length : indexA) - (indexB === -1 ? customOrder.length : indexB);
-                });
-                setFoodCategory(response);
-                setIsLoading(false);
-            } catch (error) {
-                console.log(error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        fetchData();
+        const sortedCategories = categories.sort((a, b) => {
+            const indexA = categories.indexOf(a.category);
+            const indexB = categories.indexOf(b.category);
+            return (indexA === -1 ? categories.length : indexA) - (indexB === -1 ? categories.length : indexB);
+        });
+        setFoodCategory(sortedCategories);
     }, []);
 
 

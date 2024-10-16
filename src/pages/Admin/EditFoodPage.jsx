@@ -17,7 +17,16 @@ const EditFoodPage = () => {
         unitsOfFood: '',
 
     });
-    const [foodCategory, setFoodCategory] = useState([]);
+
+    const foodCategory = [
+        { category: 'חלב מוצריו ותחליפיו', id: 1 },
+        { category: 'דגנים וקטניות', id: 2 },
+        { category: 'עוף בשר דגים ותחליפי חלבון מן הצומח', id: 3 },
+        { category: 'שומנים', id: 4 },
+        { category: 'ירקות', id: 5 },
+        { category: 'פירות', id: 6 },
+        { category: 'נשנושים', id: 7 },
+    ];
 
 
     const { foodId } = useParams();
@@ -28,10 +37,7 @@ const EditFoodPage = () => {
             setIsLoading(true);
             try {
                 const response = await getDataFromServerAdmin(`/food/getfood/${foodId}`);
-                const foodList = await getDataFromServer('/food/category');
                 setFood(response);
-
-                setFoodCategory(foodList)
                 setIsLoading(false);
             } catch (error) {
                 console.log(error.message);
@@ -61,7 +67,6 @@ const EditFoodPage = () => {
         }
     }
 
-
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFood((prevState) => ({
@@ -70,13 +75,9 @@ const EditFoodPage = () => {
         }));
     };
 
-
-
     return (
         <div className="flex items-center justify-center py-8">
             {isLoading && <Loader />}
-
-
             <div className="flex flex-col items-center justify-center px-6 mx-auto lg:py-0 w-full max-w-md" dir="rtl">
                 <div className="w-full bg-white rounded-lg shadow">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
