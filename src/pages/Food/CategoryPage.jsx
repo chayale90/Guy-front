@@ -13,8 +13,16 @@ const CategoryPage = ({ }) => {
     const [foodList, setFoodList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [calories, setCalories] = useState(null);
-    const [categories, setCategories] = useState([]);
 
+    const categories = [
+        { category: 'חלב מוצריו ותחליפיו', id: 1 },
+        { category: 'דגנים וקטניות', id: 2 },
+        { category: 'עוף בשר דגים ותחליפי חלבון מן הצומח', id: 3 },
+        { category: 'שומנים', id: 4 },
+        { category: 'ירקות', id: 5 },
+        { category: 'פירות', id: 6 },
+        { category: 'נשנושים', id: 6 },
+    ];
 
     useEffect(() => {
         if (categoryName) {
@@ -43,6 +51,7 @@ const CategoryPage = ({ }) => {
         }
     }, [categoryName]);
 
+<<<<<<< Updated upstream
 
     useEffect(() => {
         const fetchData = async () => {
@@ -60,6 +69,8 @@ const CategoryPage = ({ }) => {
         fetchData();
     }, []);
 
+=======
+>>>>>>> Stashed changes
     return (
         <>
             <div className='relative lg:hidden md:hidden'>
