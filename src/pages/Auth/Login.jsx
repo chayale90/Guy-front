@@ -35,7 +35,7 @@ const Login = () => {
 
         try {
             const response = await sendDataToServer('/users/login', formData);
-            toast.success('התחברת בהצלחה !');
+            toast.success('!התחברת בהצלחה');
             localStorage.setItem('user', JSON.stringify(response));
 
             if (response.role === 'admin') {
