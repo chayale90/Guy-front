@@ -8,6 +8,7 @@ import milkImage from '/images/milk.webp';
 import logo from '/images/גיא לוי עם כל תיקוני הצבע לוגו.png';
 
 
+
 const imagesToPreload = [
     vegetablesImage,
     cerealsImage,
