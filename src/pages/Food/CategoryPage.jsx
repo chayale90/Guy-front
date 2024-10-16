@@ -51,26 +51,7 @@ const CategoryPage = ({ }) => {
         }
     }, [categoryName]);
 
-<<<<<<< Updated upstream
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true);
-            try {
-                let response = await getDataFromServer('/food/category');
-                setCategories(response);
-                setIsLoading(false);
-            } catch (error) {
-                console.log(error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        fetchData();
-    }, []);
-
-=======
->>>>>>> Stashed changes
     return (
         <>
             <div className='relative lg:hidden md:hidden'>

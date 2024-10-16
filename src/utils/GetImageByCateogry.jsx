@@ -5,7 +5,7 @@ import oilImage from '/images/oil.webp';
 import fruitsImage from '/images/fruits.webp';
 import meatImage from '/images/meat.webp';
 import milkImage from '/images/milk.webp';
-import logo from '/images/גיא לוי עם כל תיקוני הצבע לוגו.png';
+import logo from '/images/guy_levi_logo.webp';
 
 
 
