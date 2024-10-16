@@ -18,29 +18,23 @@ const CreateFoodForm = () => {
         unitsOfFood: '',
     };
 
-
     const [formData, setFormData] = useState(initialFormData);
-    const [foodCategory, setFoodCategory] = useState([]);
+    // const [foodCategory, setFoodCategory] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+
+    const foodCategory = [
+        { category: 'חלב מוצריו ותחליפיו', id: 1 },
+        { category: 'דגנים וקטניות', id: 2 },
+        { category: 'עוף בשר דגים ותחליפי חלבון מן הצומח', id: 3 },
+        { category: 'שומנים', id: 4 },
+        { category: 'ירקות', id: 5 },
+        { category: 'פירות', id: 6 },
+        { category: 'נשנושים', id: 7 },
+    ];
+
 
     const navigate = useNavigate();
 
-
-    useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true);
-            try {
-                const foodList = await getDataFromServer('/food/category');
-                setFoodCategory(foodList);
-                setIsLoading(false);
-            } catch (error) {
-                console.log(error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        fetchData();
-    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
