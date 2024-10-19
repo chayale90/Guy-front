@@ -1,7 +1,6 @@
-import React from 'react'
-
 import CategoryCarousel from './CategoryCarousel'
-import CategoryGrid from './CategoryGrid '
+import CategoryGrid from './CategoryGrid'
+
 
 
 

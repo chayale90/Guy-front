@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { checkCategory, preloadImages } from '../../utils/GetImageByCateogry';
 
 
-const CategoryGrid = ({ categoriesList, isLoading }) => {
+const CategoryGrid = ({ categoriesList }) => {
     useEffect(() => {
         preloadImages();
     }, []);

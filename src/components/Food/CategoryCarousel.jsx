@@ -4,7 +4,7 @@ import { checkCategory, preloadImages } from '../../utils/GetImageByCateogry'
 
 
 
-const CategoryCarousel = ({ categoriesList, categoryName, isLoading }) => {
+const CategoryCarousel = ({ categoriesList, categoryName }) => {
     useEffect(() => {
         preloadImages();
     }, []);

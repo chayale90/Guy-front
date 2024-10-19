@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { getDataFromServer } from '../../helpers/Api';
-import Loader from '../../components/Loader';
 import FormTitle from '../../components/Form/FormTitle';
 import TableProductsTable from '../../components/Food/TableProductsTable';
 import { checkCategory } from '../../utils/GetImageByCateogry';
 import { calculateCalories, checkCategoryCalories } from '../../utils/CheckFoodCalories';
 import CategoryCards from '../../components/Food/CategoryCards';
 
-const CategoryPage = ({ }) => {
+const CategoryPage = () => {
     const { categoryName } = useParams();
     const [foodList, setFoodList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +45,6 @@ const CategoryPage = ({ }) => {
                     setIsLoading(false);
                 }
             };
-
             fetchFilteredFood();
         }
     }, [categoryName]);
@@ -71,7 +69,6 @@ const CategoryPage = ({ }) => {
 
                 <FormTitle className='text-[34px] font-Assistant text-white py-4 font-bold absolute bottom-0 right-3 break-words' text={categoryName}></FormTitle>
                 <h3 dir='rtl' className='text-[14px] font-Assistant text-white py-2 mt-4 absolute bottom-[-0.5rem] font-normal right-3 break-words'>מנה = {checkCategoryCalories(categoryName)} קלוריות</h3>
-
             </div>
 
             <div className='min-w-full mx-auto bg-white p-3 lg:p-10 md:px-10 lg:max-w-4xl'>
