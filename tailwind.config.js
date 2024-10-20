@@ -35,7 +35,7 @@ export default {
         'border-color': '#D23759',
       },
       backgroundImage: {
-        'custom-categoryImage': "url('/images/categoriesPageBG.png')",
+        'custom-categoryImage': "url('/images/categoriesPageBG.webp')",
 
       },
       backgroundColor: {

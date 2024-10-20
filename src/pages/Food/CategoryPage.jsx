@@ -3,10 +3,29 @@ import { Link, useParams } from 'react-router-dom';
 import { getDataFromServer } from '../../helpers/Api';
 import FormTitle from '../../components/Form/FormTitle';
 import TableProductsTable from '../../components/Food/TableProductsTable';
-import { checkCategory } from '../../utils/GetImageByCateogry';
 import { calculateCalories, checkCategoryCalories } from '../../utils/CheckFoodCalories';
 import CategoryCards from '../../components/Food/CategoryCards';
+import vegetablesImage from '/images/ירקות.webp';
+import cerealsImage from '/images/דגנים.webp';
+import snackingImage from '/images/נשנושים.webp';
+import oilImage from '/images/שמנים.webp';
+import fruitsImage from '/images/פירות.webp';
+import meatImage from '/images/חלבון.webp';
+import milkImage from '/images/חלב.webp';
+import logo from '/images/guy_levi_logo.webp';
 
+const checkCategory = (categoryName) => {
+    switch (categoryName) {
+        case 'ירקות': return vegetablesImage;
+        case 'דגנים וקטניות': return cerealsImage;
+        case 'חלב מוצריו ותחליפיו': return milkImage;
+        case 'נשנושים': return snackingImage;
+        case 'פירות': return fruitsImage;
+        case 'עוף בשר דגים ותחליפי חלבון מן הצומח': return meatImage;
+        case 'שומנים': return oilImage;
+        default: return logo;
+    }
+};
 const CategoryPage = () => {
     const { categoryName } = useParams();
     const [foodList, setFoodList] = useState([]);
@@ -20,7 +39,7 @@ const CategoryPage = () => {
         { category: 'שומנים', id: 4 },
         { category: 'ירקות', id: 5 },
         { category: 'פירות', id: 6 },
-        { category: 'נשנושים', id: 6 },
+        { category: 'נשנושים', id: 7 },
     ];
 
     useEffect(() => {
@@ -58,6 +77,7 @@ const CategoryPage = () => {
                     <img
                         src={checkCategory(categoryName)}
                         className="w-full h-full object-cover object-center"
+                        loading='lazy'
                         alt="category"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-70"></div>

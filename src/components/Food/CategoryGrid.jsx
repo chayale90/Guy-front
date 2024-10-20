@@ -1,12 +1,29 @@
-import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { checkCategory, preloadImages } from '../../utils/GetImageByCateogry';
 
+import vegetablesImage from '/images/ירקות.webp';
+import cerealsImage from '/images/דגנים.webp';
+import snackingImage from '/images/נשנושים.webp';
+import oilImage from '/images/שמנים.webp';
+import fruitsImage from '/images/פירות.webp';
+import meatImage from '/images/חלבון.webp';
+import milkImage from '/images/חלב.webp';
+import logo from '/images/guy_levi_logo.webp';
+
+const checkCategory = (categoryName) => {
+    switch (categoryName) {
+        case 'ירקות': return vegetablesImage;
+        case 'דגנים וקטניות': return cerealsImage;
+        case 'חלב מוצריו ותחליפיו': return milkImage;
+        case 'נשנושים': return snackingImage;
+        case 'פירות': return fruitsImage;
+        case 'עוף בשר דגים ותחליפי חלבון מן הצומח': return meatImage;
+        case 'שומנים': return oilImage;
+        default: return logo;
+    }
+};
 
 const CategoryGrid = ({ categoriesList }) => {
-    useEffect(() => {
-        preloadImages();
-    }, []);
+
     return (
         <div className='lg:max-w-screen-lg lg:mx-auto md:max-w-screen-md md:mx-auto p-4 lg:p-4 bg-[#FFFFFF]' dir='rtl'>
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-8">
@@ -32,8 +49,6 @@ const CategoryGrid = ({ categoriesList }) => {
                 }
             </div>
         </div>
-
-
     )
 }
 export default CategoryGrid 
