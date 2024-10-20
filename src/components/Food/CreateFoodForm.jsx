@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import Loader from '../Loader';
 import FormInput from '../Form/FormInput';
 import FormSelectInput from '../Form/FormSelectInput';
 import FormTitle from '../Form/FormTitle';
-import { getDataFromServer, sendDataToServerAdmin } from '../../helpers/Api';
+import { sendDataToServerAdmin } from '../../helpers/Api';
 import { toast } from 'react-toastify';
 
 const CreateFoodForm = () => {
@@ -19,7 +19,6 @@ const CreateFoodForm = () => {
     };
 
     const [formData, setFormData] = useState(initialFormData);
-    // const [foodCategory, setFoodCategory] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const foodCategory = [
@@ -32,9 +31,7 @@ const CreateFoodForm = () => {
         { category: 'נשנושים', id: 7 },
     ];
 
-
     const navigate = useNavigate();
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -65,7 +62,6 @@ const CreateFoodForm = () => {
         }))
     };
     return (
-
         <div className="flex items-center justify-center py-8">
             {isLoading && <Loader />}
             <div className="flex flex-col items-center justify-center px-6 mx-auto lg:py-0 w-full max-w-md" dir="rtl">
@@ -86,7 +82,6 @@ const CreateFoodForm = () => {
                             </div>
                             <div>
                                 <FormSelectInput name="category" value={formData.category} onChange={handleChange} options={foodCategory} />
-
                             </div>
                             <div>
                                 <FormInput

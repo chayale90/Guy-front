@@ -1,7 +1,6 @@
 import React from 'react'
 import Logo from '../Logo'
-// import { Link } from 'react-router-dom'
-// import { RiGlobalLine } from "react-icons/ri";
+
 
 const HeaderFormLogin = () => {
     return (
@@ -11,10 +10,6 @@ const HeaderFormLogin = () => {
                 <div className='lg:max-h-32 h-full'>
                     <Logo />
                 </div>
-                {/* <Link to={'https://www.guyl.co.il/'} target='_blank' className='flex justify-between text-center font-Assistant font-bold items-center text-custom-blue text-[18.33px] gap-0.5'>
-                    <RiGlobalLine />
-                    <p className='underline decoration-[#443eeacc] decoration-1 underline-offset-[2px]'>לאתר הבית של גיא</p>
-                </Link> */}
             </div>
 
             {/* Medium Section */}

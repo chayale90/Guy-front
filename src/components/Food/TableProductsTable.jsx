@@ -49,7 +49,7 @@ const TableProductsTable = ({ foodList, setFoodList, filteredFoodList, searchInp
 
 
     return (
-        <div className="overflow-x-auto w-full mt-5 lg:px-32 lg:py-5 flex justify-center" dir='rtl'>
+        <div className="overflow-x-auto min-w-full mt-5 lg:px-32 lg:py-5" dir='rtl'>
             <table className="min-w-full border-collapse">
                 <TableHeader headers={['מזון', 'גרם למנה', 'יחידה למנה', showButtons ? 'פעולות' : null]} />
                 <tbody>
@@ -69,13 +69,13 @@ const TableProductsTable = ({ foodList, setFoodList, filteredFoodList, searchInp
                                 </th>
                                 <th
                                     scope="row"
-                                    className="px-2 py-2 text-black font-Assistant font-normal text-[16px] break-words"
+                                    className="px-4 py-2 text-black font-Assistant font-normal text-[16px] break-words"
                                 >
                                     {food.calories ? `${food.calories}` : ""}
                                 </th>
                                 <th
                                     scope="row"
-                                    className="px-2 py-2 text-black font-Assistant font-normal text-[16px] break-words"
+                                    className="px-4 py-2 text-black font-Assistant font-normal text-[16px] break-words "
                                 >
                                     {food.unitsOfFood}
                                 </th>

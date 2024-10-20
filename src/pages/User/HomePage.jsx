@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { getDataFromServer } from '../../helpers/Api';
 import UsersHeader from '../../components/UsersHeader';
 import CategoryCards from '../../components/Food/CategoryCards';
-import './HomePage.css'
 import TableProductsTable from '../../components/Food/TableProductsTable';
 import { preloadImages } from '../../utils/GetImageByCateogry';
 import { Link } from 'react-router-dom'

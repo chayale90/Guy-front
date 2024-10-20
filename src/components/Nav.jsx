@@ -6,10 +6,8 @@ const Nav = ({ showNav = true }) => {
 
     const [admin, setAdmin] = useState(false);
 
-
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user'));
-
         if (user && user.role === 'admin') {
             setAdmin(true);
         } else {
@@ -20,7 +18,6 @@ const Nav = ({ showNav = true }) => {
     if (!showNav) {
         return null;
     }
-
 
     return (
         <nav className='bg-custom-header-bg w-full p-1 mx-auto'>

@@ -9,7 +9,6 @@ const AdminUsers = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-
         const fetchData = async () => {
             setIsLoading(true);
             try {

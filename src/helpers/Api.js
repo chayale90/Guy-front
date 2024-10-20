@@ -126,9 +126,7 @@ export const deleteData = async (endpoint, data) => {
                 Authorization: `Bearer ${user.token}`,
             },
         });
-
         return response;
-
     } catch (error) {
         throw new Error('שגיאה. נסה שוב מאוחר יותר');
     }
