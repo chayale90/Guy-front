@@ -14,7 +14,9 @@ import meatImage from '/images/חלבון.webp';
 import milkImage from '/images/חלב.webp';
 import logo from '/images/guy_levi_logo.webp';
 
+
 const checkCategory = (categoryName) => {
+
     switch (categoryName) {
         case 'ירקות': return vegetablesImage;
         case 'דגנים וקטניות': return cerealsImage;
@@ -31,6 +33,7 @@ const CategoryPage = () => {
     const [foodList, setFoodList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [calories, setCalories] = useState(null);
+    const foodCache = {};
 
     const categories = [
         { category: 'חלב מוצריו ותחליפיו', id: 1 },
