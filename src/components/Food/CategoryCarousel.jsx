@@ -1,15 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { checkCategory, preloadImages } from '../../utils/GetImageByCateogry'
+import vegetablesImage from '/images/ירקות.webp';
+import cerealsImage from '/images/דגנים.webp';
+import snackingImage from '/images/נשנושים.webp';
+import oilImage from '/images/שמנים.webp';
+import fruitsImage from '/images/פירות.webp';
+import meatImage from '/images/חלבון.webp';
+import milkImage from '/images/חלב.webp';
+import logo from '/images/guy_levi_logo.webp';
 
-
+const checkCategory = (categoryName) => {
+    switch (categoryName) {
+        case 'ירקות': return vegetablesImage;
+        case 'דגנים וקטניות': return cerealsImage;
+        case 'חלב מוצריו ותחליפיו': return milkImage;
+        case 'נשנושים': return snackingImage;
+        case 'פירות': return fruitsImage;
+        case 'עוף בשר דגים ותחליפי חלבון מן הצומח': return meatImage;
+        case 'שומנים': return oilImage;
+        default: return logo;
+    }
+};
 
 const CategoryCarousel = ({ categoriesList, categoryName }) => {
-    useEffect(() => {
-        preloadImages();
-    }, []);
-    const [currentIndex, setCurrentIndex] = useState(0);
 
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
         const index = categoriesList.findIndex(item => item.category === categoryName);
