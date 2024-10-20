@@ -20,7 +20,6 @@ const AppRoutes = () => {
 
     return (
         <>
-
             <div className="hidden lg:block md:block">
                 <Nav showNav={shouldShowNav} />
             </div>
