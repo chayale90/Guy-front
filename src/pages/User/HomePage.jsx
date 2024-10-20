@@ -45,11 +45,14 @@ const HomePage = () => {
                     console.error("Error parsing JSON:", error);
                 }
             }
-
-            // Fetch food list
             setIsLoading(true);
             try {
-                const response = await getDataFromServer('/food/foodList');
+                let response = await getDataFromServer('/food/foodList');
+                response = response.sort((a, b) => {
+                    const nameA = a.name.replace(/[\s-]/g, '');
+                    const nameB = b.name.replace(/[\s-]/g, '');
+                    return nameA.localeCompare(nameB, 'he', { sensitivity: 'base', ignorePunctuation: true });
+                });
                 setFoodList(response);
                 setFilteredFoodList(response);
             } catch (error) {
