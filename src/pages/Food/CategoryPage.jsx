@@ -1,20 +1,49 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { getDataFromServer } from '../../helpers/Api';
-import Loader from '../../components/Loader';
 import FormTitle from '../../components/Form/FormTitle';
 import TableProductsTable from '../../components/Food/TableProductsTable';
-import { checkCategory } from '../../utils/GetImageByCateogry';
 import { calculateCalories, checkCategoryCalories } from '../../utils/CheckFoodCalories';
 import CategoryCards from '../../components/Food/CategoryCards';
+import vegetablesImage from '/images/ירקות.webp';
+import cerealsImage from '/images/דגנים.webp';
+import snackingImage from '/images/נשנושים.webp';
+import oilImage from '/images/שמנים.webp';
+import fruitsImage from '/images/פירות.webp';
+import meatImage from '/images/חלבון.webp';
+import milkImage from '/images/חלב.webp';
+import logo from '/images/guy_levi_logo.webp';
 
-const CategoryPage = ({ }) => {
+
+const checkCategory = (categoryName) => {
+
+    switch (categoryName) {
+        case 'ירקות': return vegetablesImage;
+        case 'דגנים וקטניות': return cerealsImage;
+        case 'חלב מוצריו ותחליפיו': return milkImage;
+        case 'נשנושים': return snackingImage;
+        case 'פירות': return fruitsImage;
+        case 'עוף בשר דגים ותחליפי חלבון מן הצומח': return meatImage;
+        case 'שומנים': return oilImage;
+        default: return logo;
+    }
+};
+const CategoryPage = () => {
     const { categoryName } = useParams();
     const [foodList, setFoodList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [calories, setCalories] = useState(null);
-    const [categories, setCategories] = useState([]);
+    const foodCache = {};
 
+    const categories = [
+        { category: 'חלב מוצריו ותחליפיו', id: 1 },
+        { category: 'דגנים וקטניות', id: 2 },
+        { category: 'עוף בשר דגים ותחליפי חלבון מן הצומח', id: 3 },
+        { category: 'שומנים', id: 4 },
+        { category: 'ירקות', id: 5 },
+        { category: 'פירות', id: 6 },
+        { category: 'נשנושים', id: 7 },
+    ];
 
     useEffect(() => {
         if (categoryName) {
@@ -38,29 +67,10 @@ const CategoryPage = ({ }) => {
                     setIsLoading(false);
                 }
             };
-
             fetchFilteredFood();
         }
     }, [categoryName]);
 
-
-    useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true);
-
-            try {
-                let response = await getDataFromServer('/food/category');
-
-                setCategories(response);
-                setIsLoading(false);
-            } catch (error) {
-                console.log(error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        fetchData();
-    }, []);
 
     return (
         <>
@@ -70,6 +80,7 @@ const CategoryPage = ({ }) => {
                     <img
                         src={checkCategory(categoryName)}
                         className="w-full h-full object-cover object-center"
+                        loading='lazy'
                         alt="category"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-70"></div>
@@ -81,7 +92,6 @@ const CategoryPage = ({ }) => {
 
                 <FormTitle className='text-[34px] font-Assistant text-white py-4 font-bold absolute bottom-0 right-3 break-words' text={categoryName}></FormTitle>
                 <h3 dir='rtl' className='text-[14px] font-Assistant text-white py-2 mt-4 absolute bottom-[-0.5rem] font-normal right-3 break-words'>מנה = {checkCategoryCalories(categoryName)} קלוריות</h3>
-
             </div>
 
             <div className='min-w-full mx-auto bg-white p-3 lg:p-10 md:px-10 lg:max-w-4xl'>

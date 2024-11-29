@@ -71,7 +71,7 @@ const AdminHomePage = () => {
                 </Link>
             </div>
 
-            <div className='min-w-full mx-auto p-4 py-8'>
+            <div className='min-w-full mx-auto py-8'>
                 <TableProductsTable foodList={filteredFoodList} setFoodList={setFoodList} filteredFoodList={filteredFoodList} searchInput={searchInput} showButtons={true} />
             </div>
         </>
