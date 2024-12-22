@@ -12,10 +12,13 @@ const GoogleAuthHandler = () => {
         const token = params.get('token');
 
         if (user && token) {
-            console.log(user, token)
-            localStorage.setItem('user', JSON.stringify({ ...user, token }));
-
-            navigate('/home');
+            if (user.isActive) {
+                localStorage.setItem('user', JSON.stringify({ ...user, token }));
+                navigate('/home');
+            } else {
+                // Redirect if the user is inactive
+                navigate('/');
+            }
         } else {
             navigate('/');
         }
