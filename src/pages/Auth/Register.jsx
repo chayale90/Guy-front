@@ -37,11 +37,9 @@ const Register = () => {
         try {
             const response = await sendDataToServer('/users/register', formData);
 
-            // Check if response has data and no error
             if (response && !response.error) {
-                localStorage.setItem('user', JSON.stringify(response));
-                toast.success('נרשמת בהצלחה !');
-                navigate('/home');
+                toast.success('נרשמת בהצלחה! אנא התחבר');
+                navigate('/');
             } else {
                 toast.error(response.message || 'שגיאה בהרשמה');
             }
@@ -70,6 +68,7 @@ const Register = () => {
             >
                 <HeaderFormLogin />
 
+                <h1 className='font-Assistant text-[22px] font-medium'>הרשמה</h1>
                 {/* Bottom Section */}
                 <div className="w-full flex items-center justify-center py-4 relative">
                     <div className="space-y-2 w-full">
@@ -130,17 +129,17 @@ const Register = () => {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div>
-                                <Link to="/" className="font-Assistant text-sm text-custom-blue">
-                                    להתחבר לחץ כאן
-                                </Link>
-                            </div>
                             <button
                                 type="submit"
                                 className="w-full text-white text-lg font-bold bg-custom-blue rounded-full py-2"
                             >
-                                כניסה
+                                הרשמה
                             </button>
+                            <div>
+                                <Link to="/" className="font-Assistant text-sm text-custom-blue">
+                                    להתחבר לחצו כאן
+                                </Link>
+                            </div>
                         </form>
                     </div>
 

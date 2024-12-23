@@ -110,12 +110,13 @@ const Login = () => {
                                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                                 </button>
                             </div>
+
+                            <button type="submit" className="w-full text-white text-[20px] font-bold bg-custom-blue focus:outline-none rounded-full px-5 font-Assistant py-2">כניסה</button>
                             <div>
                                 <Link to={'/signup'} className='font-Assistant text-sm text-custom-blue'>
-                                    להרשמה לחץ כאן
+                                    להרשמה לחצו כאן
                                 </Link>
                             </div>
-                            <button type="submit" className="w-full text-white text-[20px] font-bold bg-custom-blue focus:outline-none rounded-full px-5 font-Assistant py-2">כניסה</button>
                         </form>
                     </div>
                     {/* WhatsApp Button */}

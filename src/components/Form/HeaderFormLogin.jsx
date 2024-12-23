@@ -13,7 +13,7 @@ const HeaderFormLogin = () => {
             </div>
 
             {/* Medium Section */}
-            <div className="flex items-center justify-center w-full py-5 md:py-0 lg:py-0">
+            <div className="flex items-center justify-center w-full py-3 md:py-0 lg:py-0">
                 <div className='text-center'>
                     <span className="text-custom-blue text-4xl font-bold leading-custom break-words">
                         קבוצות
