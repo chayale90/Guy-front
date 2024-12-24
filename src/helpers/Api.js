@@ -14,20 +14,43 @@ export const sendDataToServer = async (endpoint, data) => {
     try {
         const response = await axiosInstance.post(endpoint, data);
 
-        if (response.status === 200) {
+        // For registration specific endpoint
+        if (endpoint === '/users/register') {
+            if (response.status === 201) {  // Registration success status
+                return response.data;
+            }
+        }
+
+        // For all other endpoints
+        if (response.status === 200 || response.status === 201) {
             return response.data;
-        } else {
-            throw new Error('Unexpected server response');
         }
+
+        throw new Error('Unexpected server response');
     } catch (error) {
-        if (error.response && error.response.status === 401) {
-            throw new Error(error.response.data.message);
-        } else if (error.response && error.response.status === 403) {
+        // Handle registration specific errors
+        if (endpoint === '/users/register') {
+            if (error.response?.status === 409) {
+                throw new Error('משתמש קיים במערכת');
+            }
+            if (error.response?.status === 400) {
+                throw new Error(error.response.data.message || 'נתונים לא תקינים');
+            }
+        }
+
+        // Generic error handling for all endpoints
+        if (error.response?.data?.message) {
             throw new Error(error.response.data.message);
         }
-        else {
-            throw new Error('שגיאה. נסה שוב מאוחר יותר');
+        if (error.response?.status === 401) {
+            throw new Error('משתמש לא מורשה');
         }
+        if (error.response?.status === 403) {
+            throw new Error('אין הרשאה לבצע פעולה זו');
+        }
+
+        // Default error
+        throw new Error('שגיאה. נסה שוב מאוחר יותר');
     }
 };
 

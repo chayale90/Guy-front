@@ -13,10 +13,11 @@ import HomePage from '../pages/User/HomePage';
 import CategoryPage from '../pages/Food/CategoryPage';
 import GoogleAuthHandler from '../pages/Auth/GoogleAuthHandler';
 import Nav from '../components/Nav';
+import Register from '../pages/Auth/Register';
 
 const AppRoutes = () => {
     const location = useLocation();
-    const shouldShowNav = location?.pathname !== "/";
+    const shouldShowNav = location.pathname !== "/" && location.pathname !== "/signup";
 
     return (
         <>
@@ -25,6 +26,7 @@ const AppRoutes = () => {
             </div>
             <Routes>
                 <Route path="/" element={<Login />} />
+                <Route path="/signup" element={<Register />} />
                 <Route path="/google-auth" element={<GoogleAuthHandler />} />
                 <Route path="/home" element={<PrivateRoute element={<HomePage />} />} />
                 <Route path="/home/category/:categoryName" element={<PrivateRoute element={<CategoryPage />} />} />
