@@ -30,7 +30,7 @@ const Register = () => {
         }));
     };
 
-    const handleLogin = async (e) => {
+    const handleRegistration = async (e) => {
         e.preventDefault();
         setIsLoading(true);
 
@@ -72,7 +72,7 @@ const Register = () => {
                 {/* Bottom Section */}
                 <div className="w-full flex items-center justify-center py-4 relative">
                     <div className="space-y-2 w-full">
-                        <form className="space-y-4" onSubmit={handleLogin}>
+                        <form className="space-y-4" onSubmit={handleRegistration}>
                             {/* Input Fields */}
                             <div className="space-y-4" dir="rtl">
                                 <FormInput
