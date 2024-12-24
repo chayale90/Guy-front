@@ -3,7 +3,7 @@ const PrivateRoute = ({ element, adminOnly }) => {
 
     const user = JSON.parse(localStorage.getItem('user'));
 
-    if (!user || !user.token) {
+    if (!user) {
         return <Navigate to="/" replace />;
     }
 
