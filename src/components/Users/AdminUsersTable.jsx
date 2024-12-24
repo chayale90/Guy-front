@@ -18,7 +18,7 @@ const AdminUsersTable = ({ users, setUsers }) => {
             const updatedUser = response.user;
             if (updatedUser) {
                 setUsers(prevUsers =>
-                    prevUsers.map(u => 
+                    prevUsers.map(u =>
                         u._id === updatedUser._id ? { ...u, isActive: updatedUser.isActive } : u
                     )
                 );
@@ -30,7 +30,7 @@ const AdminUsersTable = ({ users, setUsers }) => {
             setLoadingUserIds(prev => prev.filter(id => id !== user._id));
         }
     }, [setUsers]);
-    
+
 
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -40,7 +40,7 @@ const AdminUsersTable = ({ users, setUsers }) => {
             </div>
             <div className="scroll">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500" dir='rtl'>
-                    <TableHeader headers={['#', 'שם מלא', 'שם משפחה', 'אימייל', 'סיסמא', 'חסימת משתמש',]} />
+                    <TableHeader headers={['#', 'שם מלא', 'שם משפחה', 'אימייל', 'סיסמא', 'פלאפון', 'חסימת משתמש',]} />
                     <tbody>
                         {
                             users.length > 0 && users.map((user, index) => (
@@ -61,6 +61,9 @@ const AdminUsersTable = ({ users, setUsers }) => {
                                         {user.password}
                                     </td>
                                     <td className="px-6 py-4 text-black font-Assistant text-[18px]">
+                                        {user.phoneNumber}
+                                    </td>
+                                    <td className="px-6 py-4 text-black font-Assistant text-[18px]">
                                         {loadingUserIds.includes(user._id) ? (
                                             <Loader />
                                         ) : (
@@ -70,10 +73,10 @@ const AdminUsersTable = ({ users, setUsers }) => {
                                                 </button>
                                             ) : (
                                                 <button type='button' className="font-medium text-red-600" onClick={() => handleBlockToggle(user)}>
-                                                 משתמש חסום
-                                                <i className="fa-solid fa-ban m-1"></i>
-                                            </button>
-                                            
+                                                    משתמש חסום
+                                                    <i className="fa-solid fa-ban m-1"></i>
+                                                </button>
+
                                             )
                                         )}
                                     </td>

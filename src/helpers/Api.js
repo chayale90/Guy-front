@@ -58,7 +58,7 @@ export const sendDataToServerAdmin = async (endpoint, data) => {
     const userJSON = localStorage.getItem('user');
     try {
         const user = JSON.parse(userJSON);
-        if (!user.token) {
+        if (!user) {
             throw new Error('No token available');
         }
 
