@@ -7,7 +7,10 @@ import Loader from '../../components/Loader';
 import WhatsUppButton from '../../components/Form/WhatsUppButton';
 import HeaderFormLogin from '../../components/Form/HeaderFormLogin';
 import { FaEyeSlash, FaEye } from "react-icons/fa";
+import axios from 'axios';
 
+
+const baseURL = import.meta.env.VITE_BASE_URL;
 const Register = () => {
 
     const [formData, setFormData] = useState({
@@ -35,7 +38,7 @@ const Register = () => {
         setIsLoading(true);
 
         try {
-            const response = await sendDataToServer('/users/register', formData);
+            const response = await axios.post(`${baseURL}/auth/register`, formData);
 
             if (response && !response.error) {
                 toast.success('נרשמת בהצלחה! אנא התחבר');
