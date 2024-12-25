@@ -47,6 +47,7 @@ const Register = () => {
                 toast.error(response.message || 'שגיאה בהרשמה');
             }
         } catch (error) {
+            console.error('Error during registration:', error.response?.data || error.message);
             toast.error(error.response?.data?.message || error.message || 'שגיאה בהרשמה');
         } finally {
             setIsLoading(false);
