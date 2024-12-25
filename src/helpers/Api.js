@@ -12,22 +12,11 @@ const axiosInstance = axios.create({
 
 export const sendDataToServer = async (endpoint, data) => {
     try {
-        const response = await axiosInstance.post(endpoint, data);
 
-        if (response.status === 200) {
-            return response.data;
-        } else {
-            throw new Error('Unexpected server response');
-        }
+        const response = await axiosInstance.post(endpoint, data);
+        return response.data;
     } catch (error) {
-        if (error.response && error.response.status === 401) {
-            throw new Error(error.response.data.message);
-        } else if (error.response && error.response.status === 403) {
-            throw new Error(error.response.data.message);
-        }
-        else {
-            throw new Error('שגיאה. נסה שוב מאוחר יותר');
-        }
+        throw new Error(error.response?.data?.message || 'Error occurred');
     }
 };
 
@@ -35,7 +24,7 @@ export const sendDataToServerAdmin = async (endpoint, data) => {
     const userJSON = localStorage.getItem('user');
     try {
         const user = JSON.parse(userJSON);
-        if (!user.token) {
+        if (!user) {
             throw new Error('No token available');
         }
 
@@ -126,9 +115,7 @@ export const deleteData = async (endpoint, data) => {
                 Authorization: `Bearer ${user.token}`,
             },
         });
-
         return response;
-
     } catch (error) {
         throw new Error('שגיאה. נסה שוב מאוחר יותר');
     }

@@ -1,68 +1,62 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { getDataFromServer } from '../../helpers/Api';
 import UsersHeader from '../../components/UsersHeader';
 import CategoryCards from '../../components/Food/CategoryCards';
-import './HomePage.css'
 import TableProductsTable from '../../components/Food/TableProductsTable';
-import { preloadImages } from '../../utils/GetImageByCateogry';
 import { Link } from 'react-router-dom'
 import { RiGlobalLine } from "react-icons/ri";
 
+
 const HomePage = () => {
     const [foodList, setFoodList] = useState([]);
-    const [foodCategory, setFoodCategory] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [filteredFoodList, setFilteredFoodList] = useState([]);
     const [userName, setUserName] = useState('');
     const [isSearching, setIsSearching] = useState(false);
     const [clearSearch, setClearSearch] = useState(false);
 
-    const customOrder = [
-        'חלב מוצריו ותחליפיו',
-        'דגנים וקטניות',
-        'עוף בשר דגים ותחליפי חלבון מן הצומח',
-        'שומנים',
-        'ירקות',
-        'פירות',
-        'נשנושים',
-    ];
 
+    const sortedCategories = useMemo(() => {
+        const categories = [
+            { category: 'חלב מוצריו ותחליפיו', id: 1 },
+            { category: 'דגנים וקטניות', id: 2 },
+            { category: 'עוף בשר דגים ותחליפי חלבון מן הצומח', id: 3 },
+            { category: 'שומנים', id: 4 },
+            { category: 'ירקות', id: 5 },
+            { category: 'פירות', id: 6 },
+            { category: 'נשנושים', id: 7 },
+        ];
+        return categories.sort((a, b) => {
+            const indexA = categories.indexOf(a.category);
+            const indexB = categories.indexOf(b.category);
+            return (indexA === -1 ? categories.length : indexA) - (indexB === -1 ? categories.length : indexB);
+        });
+    }, []);
 
-    useEffect(() => {
-        preloadImages();
-    }, []);
-    useEffect(() => {
-        const user = localStorage.getItem('user');
-        if (user) {
-            try {
-                const parsedUser = JSON.parse(user);
-                if (parsedUser && typeof parsedUser === 'object' && 'firstName' in parsedUser) {
-                    setUserName(parsedUser.firstName);
-                } else {
-                    console.log("Parsed User does not contain 'firstName' property");
-                }
-            } catch (error) {
-                console.error("Error parsing JSON:", error);
-            }
-        } else {
-            console.log("No user data found in localStorage");
-        }
-    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
+            const user = localStorage.getItem('user');
+            if (user) {
+                try {
+                    const parsedUser = JSON.parse(user);
+                    setUserName(parsedUser?.firstName || '');
+                } catch (error) {
+                    console.error("Error parsing JSON:", error);
+                }
+            }
             setIsLoading(true);
             try {
-                let response = await getDataFromServer('/food/category');
+                let response = await getDataFromServer('/food/foodList');
                 response = response.sort((a, b) => {
-                    const indexA = customOrder.indexOf(a.category);
-                    const indexB = customOrder.indexOf(b.category);
-                    return (indexA === -1 ? customOrder.length : indexA) - (indexB === -1 ? customOrder.length : indexB);
+                    const nameA = a.name.replace(/[\s-]/g, '');
+                    const nameB = b.name.replace(/[\s-]/g, '');
+                    return nameA.localeCompare(nameB, 'he', { sensitivity: 'base', ignorePunctuation: true });
                 });
-                setFoodCategory(response);
-                setIsLoading(false);
+                setFoodList(response);
+                setFilteredFoodList(response);
             } catch (error) {
-                console.log(error);
+                console.error("Error fetching food list:", error);
             } finally {
                 setIsLoading(false);
             }
@@ -70,22 +64,6 @@ const HomePage = () => {
         fetchData();
     }, []);
 
-
-    useEffect(() => {
-        const fetchFoodList = async () => {
-            setIsLoading(true);
-            try {
-                const response = await getDataFromServer('/food/foodList');
-                setFoodList(response);
-                setFilteredFoodList(response);
-                setIsLoading(false);
-            } catch (error) {
-                console.error(error);
-                setIsLoading(false);
-            }
-        };
-        fetchFoodList();
-    }, []);
 
     const handleBackToHome = () => {
         setIsSearching(false);
@@ -140,7 +118,7 @@ const HomePage = () => {
                     </>
                 )}
                 {!isSearching && (
-                    <CategoryCards categoriesList={foodCategory} isLoading={isLoading} />
+                    <CategoryCards categoriesList={sortedCategories} isLoading={isLoading} isCarousel={false} />
                 )}
             </div>
             {/* Footer section */}
@@ -151,7 +129,6 @@ const HomePage = () => {
                 </Link>
             </footer>
         </>
-
     )
 }
 
