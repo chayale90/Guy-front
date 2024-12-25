@@ -12,12 +12,8 @@ const axiosInstance = axios.create({
 
 export const sendDataToServer = async (endpoint, data) => {
     try {
-        const headers = {};
-        if (endpoint !== '/auth/register') {
-            headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
-        }
 
-        const response = await axiosInstance.post(endpoint, data, { headers });
+        const response = await axiosInstance.post(endpoint, data);
         return response.data;
     } catch (error) {
         throw new Error(error.response?.data?.message || 'Error occurred');
