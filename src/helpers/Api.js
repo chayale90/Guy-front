@@ -13,7 +13,7 @@ const axiosInstance = axios.create({
 export const sendDataToServer = async (endpoint, data) => {
     try {
         const headers = {};
-        if (endpoint !== '/users/register') {
+        if (endpoint !== '/auth/register') {
             headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
         }
 
