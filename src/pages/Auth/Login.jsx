@@ -113,7 +113,7 @@ const Login = () => {
 
                             <button type="submit" className="w-full text-white text-[20px] font-bold bg-custom-blue focus:outline-none rounded-full px-5 font-Assistant py-2">כניסה</button>
                             <div>
-                                <Link to={'/signup'} className='font-Assistant text-sm text-custom-blue'>
+                                <Link to={'/signup'} className='font-Assistant text-lg text-[#d13658]'>
                                     להרשמה לחצו כאן
                                 </Link>
                             </div>
