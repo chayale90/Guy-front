@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { sendDataToServer } from '../../helpers/Api';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import FormInput from '../../components/Form/FormInput';
@@ -38,7 +37,10 @@ const Register = () => {
         setIsLoading(true);
 
         try {
+            console.log(baseURL)
             const response = await axios.post(`${baseURL}/auth/register`, formData);
+
+
 
             if (response && !response.error) {
                 toast.success('נרשמת בהצלחה! אנא התחבר');
@@ -59,7 +61,7 @@ const Register = () => {
         setShowPassword(prevState => !prevState)
     }
     return (
-        <div className="relative flex h-screen justify-center bg-white lg:bg-custom-categoryImage md:bg-custom-categoryImage bg-cover bg-center">
+        <div className="relative flex min-h-screen justify-center bg-white lg:bg-custom-categoryImage md:bg-custom-categoryImage bg-cover bg-center">
             {/* Overlay */}
             <div className="absolute inset-0 bg-overlay-black bg-opacity-80"></div>
 
@@ -140,7 +142,7 @@ const Register = () => {
                                 הרשמה
                             </button>
                             <div>
-                                <Link to="/" className="font-Assistant text-sm text-custom-blue">
+                                <Link to="/" className="font-Assistant text-lg text-[#d13658]">
                                     להתחבר לחצו כאן
                                 </Link>
                             </div>
