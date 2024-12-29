@@ -62,7 +62,7 @@ const Login = () => {
     }, []);
 
     return (
-        <div className="relative flex h-screen justify-center overflow-x-hidden bg-white lg:bg-custom-categoryImage md:bg-custom-categoryImage bg-cover bg-center min-w-screen">
+        <div className="relative flex h-screen justify-center overflow-x-hidden overflow-y-hidden bg-white lg:bg-custom-categoryImage md:bg-custom-categoryImage bg-cover bg-center">
             <div className="lg:absolute lg:inset-0 lg:bg-overlay-black lg:bg-opacity-80 md:absolute md:inset-0 md:bg-overlay-black md:bg-opacity-80"></div>
 
             {isLoading && <Loader />}
