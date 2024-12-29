@@ -68,7 +68,7 @@ const Login = () => {
 
             {isLoading && <Loader />}
 
-            <div className="relative flex-col items-center text-center mx-auto p-4 w-full md:w-80 max-w-md bg-white md:bg-opacity-100 md:rounded-lg md:shadow-lg z-10 md:mt-0 overflow-y-auto md:top-5 md:absolute md:translate-x-[-50%] md:translate-y-0 md:left-1/2 md:transform md:px-6" dir="rtl">
+            <div className="relative flex-col items-center text-center mx-auto p-4 w-full md:w-80 max-w-md bg-white md:bg-opacity-100 md:rounded-lg md:shadow-lg z-10 md:mt-0 overflow-hidden md:top-5 md:absolute md:translate-x-[-50%] md:translate-y-0 md:left-1/2 md:transform md:px-6" dir="rtl">
                 <HeaderFormLogin />
                 {/* Bottom Section */}
                 <div className="w-full flex items-center justify-center md:py-0 lg:py-0">
@@ -92,7 +92,7 @@ const Login = () => {
                                     required
                                 />
                             </div>
-                            <div className='relative'>
+                            <div className="relative">
                                 <FormInput
                                     type={showPassword ? "text" : "password"}
                                     name="password"
@@ -101,7 +101,6 @@ const Login = () => {
                                     value={formData.password}
                                     onChange={handleChange}
                                     required
-
                                 />
                                 <button
                                     type="button"
@@ -114,7 +113,7 @@ const Login = () => {
 
                             <button type="submit" className="w-full text-white text-[20px] font-bold bg-custom-blue focus:outline-none rounded-full px-5 font-Assistant py-2">כניסה</button>
                             <div>
-                                <Link to={'/signup'} className='font-Assistant text-lg text-[#d13658]'>
+                                <Link to={'/signup'} className="font-Assistant text-lg text-[#d13658]">
                                     להרשמה לחצו כאן
                                 </Link>
                             </div>
