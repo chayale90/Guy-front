@@ -116,7 +116,7 @@ const Register = () => {
                                     type="email"
                                     name="email"
                                     className="text-sm border font-Assistant border-gray-300 text-black rounded-full block w-full p-2"
-                                    placeholder="כתובת E-mail"
+                                    placeholder="אימייל"
                                     value={formData.email}
                                     onChange={handleChange}
                                     required
@@ -125,7 +125,7 @@ const Register = () => {
                                     <FormInput
                                         type={showPassword ? "text" : "password"}
                                         name="password"
-                                        className="text-sm border font-Assistant border-gray-300 text-black rounded-full block w-full p-2 pr-10"
+                                        className="text-sm border font-Assistant border-gray-300 text-black rounded-full block w-full p-2 pr-8"
                                         placeholder="סיסמא"
                                         value={formData.password}
                                         onChange={handleChange}
@@ -156,7 +156,7 @@ const Register = () => {
                                     type="number"
                                     name="phoneNumber"
                                     className="text-sm border font-Assistant border-gray-300 text-black rounded-full block w-full p-2"
-                                    placeholder="מספר פלאפון"
+                                    placeholder="טלפון"
                                     value={formData.phoneNumber}
                                     onChange={handleChange}
                                 />
