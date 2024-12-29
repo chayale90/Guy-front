@@ -18,9 +18,11 @@ const Register = () => {
         email: '',
         password: '',
         phoneNumber: '',
+        confirmPassword: '',
     });
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [errorConfirmPassword, setErrorConfirmPassword] = useState(false);
 
     const navigate = useNavigate();
 
@@ -30,17 +32,28 @@ const Register = () => {
             ...prevState,
             [name]: value
         }));
+        if (name === "confirmPassword") {
+            setErrorConfirmPassword(value !== formData.password);
+        } else if (name === "password") {
+            setErrorConfirmPassword(formData.confirmPassword && value !== formData.confirmPassword);
+        }
     };
 
     const handleRegistration = async (e) => {
         e.preventDefault();
+
+        // Validate if passwords match
+        if (formData.password !== formData.confirmPassword) {
+            setErrorConfirmPassword(true);
+            toast.error('הסיסמאות אינן תואמות');
+            return;
+        }
+
+        setErrorConfirmPassword(false);
         setIsLoading(true);
 
         try {
-            console.log(baseURL)
             const response = await axios.post(`${baseURL}/auth/register`, formData);
-
-
 
             if (response && !response.error) {
                 toast.success('נרשמת בהצלחה! אנא התחבר');
@@ -61,7 +74,7 @@ const Register = () => {
         setShowPassword(prevState => !prevState)
     }
     return (
-        <div className="relative flex min-h-screen justify-center bg-white lg:bg-custom-categoryImage md:bg-custom-categoryImage bg-cover bg-center">
+        <div className="relative flex h-screen justify-center bg-white lg:bg-custom-categoryImage md:bg-custom-categoryImage bg-cover bg-center bg-fixed">
             {/* Overlay */}
             <div className="absolute inset-0 bg-overlay-black bg-opacity-80"></div>
 
@@ -69,7 +82,7 @@ const Register = () => {
 
             {/* Form Container */}
             <div
-                className="relative flex-col items-center text-center mx-auto p-4 w-full md:w-80 max-w-md bg-white md:bg-opacity-100 md:rounded-lg md:shadow-lg z-10 md:mt-0 overflow-y-auto md:top-5 md:absolute md:translate-x-[-50%] md:translate-y-0 md:left-1/2 md:transform md:px-6"
+                className="relative flex-col items-center text-center mx-auto p-4 w-full md:w-80 max-w-md bg-white bg-opacity-100 lg:rounded-lg md:lg:rounded-lg shadow-lg z-10 overflow-y-auto"
                 dir="rtl"
             >
                 <HeaderFormLogin />
@@ -126,6 +139,19 @@ const Register = () => {
                                         {showPassword ? <FaEyeSlash /> : <FaEye />}
                                     </button>
                                 </div>
+                                <FormInput
+                                    type="password"
+                                    name="confirmPassword"
+                                    className={`text-sm border font-Assistant rounded-full block w-full p-2 ${errorConfirmPassword ? 'border-red-500' : 'border-gray-300'
+                                        }`}
+                                    placeholder="אשר סיסמא"
+                                    value={formData.confirmPassword}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                {errorConfirmPassword && (
+                                    <p className="text-red-500 text-sm mt-1">הסיסמאות אינן תואמות</p>
+                                )}
                                 <FormInput
                                     type="number"
                                     name="phoneNumber"
