@@ -85,7 +85,7 @@ const Login = () => {
                                     type="email"
                                     name="email"
                                     className="text-[16px] border font-Assistant border-gray-300 text-black placeholder:font-light rounded-full block w-full p-2 placeholder:text-[#B5B5B5] placeholder:font-Assistant"
-                                    placeholder="כתובת E-mail"
+                                    placeholder="אימייל"
                                     value={formData.email}
                                     onChange={handleChange}
                                     required
