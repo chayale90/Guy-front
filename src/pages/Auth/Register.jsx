@@ -71,7 +71,7 @@ const Register = () => {
     }, []);
 
     return (
-        <div className="relative flex h-screen justify-center overflow-x-hidden lg:overflow-y-hidden md:lg:overflow-y-hidden bg-white lg:bg-custom-categoryImage md:bg-custom-categoryImage bg-cover bg-center">
+        <div className="relative flex min-h-screen justify-center overflow-x-hidden bg-white lg:bg-custom-categoryImage md:bg-custom-categoryImage bg-cover bg-center">
             {/* Overlay */}
             <div className="absolute inset-0 bg-overlay-black bg-opacity-80"></div>
 
