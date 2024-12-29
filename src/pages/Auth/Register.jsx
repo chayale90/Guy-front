@@ -71,7 +71,7 @@ const Register = () => {
     }, []);
 
     return (
-        <div className="relative flex min-h-screen justify-center bg-white lg:bg-custom-categoryImage md:bg-custom-categoryImage bg-cover bg-center">
+        <div className="relative flex h-screen justify-center overflow-x-hidden overflow-y-hidden bg-white lg:bg-custom-categoryImage md:bg-custom-categoryImage bg-cover bg-center">
             {/* Overlay */}
             <div className="absolute inset-0 bg-overlay-black bg-opacity-80"></div>
 
@@ -79,7 +79,7 @@ const Register = () => {
 
             {/* Form Container */}
             <div
-                className="relative flex-col items-center text-center mx-auto p-4 w-full md:w-80 max-w-md bg-white md:bg-opacity-100 md:rounded-lg md:shadow-lg z-10 md:mt-0 overflow-y-auto md:top-5 md:absolute md:translate-x-[-50%] md:translate-y-0 md:left-1/2 md:transform md:px-6"
+                className="relative h-screen flex-col items-center text-center mx-auto p-4 w-full md:w-80 max-w-md bg-white md:bg-opacity-100 md:rounded-lg md:shadow-lg z-10 md:mt-0 overflow-y-auto md:top-3 md:absolute md:translate-x-[-50%] md:translate-y-0 md:left-1/2 md:transform md:px-6"
                 dir="rtl"
             >
                 <HeaderFormLogin />
