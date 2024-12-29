@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import FormInput from '../../components/Form/FormInput';
@@ -65,10 +65,11 @@ const Register = () => {
     };
 
 
-    const togglePasswordVisibility = (e) => {
+    const togglePasswordVisibility = useCallback((e) => {
         e.preventDefault();
-        setShowPassword((prevState) => !prevState);
-    };
+        setShowPassword(prev => !prev);
+    }, []);
+
     return (
         <div className="relative flex min-h-screen justify-center bg-white lg:bg-custom-categoryImage md:bg-custom-categoryImage bg-cover bg-center">
             {/* Overlay */}
@@ -159,9 +160,10 @@ const Register = () => {
                             </div>
                             <button
                                 type="submit"
-                                className="w-full text-white text-lg font-bold bg-custom-blue rounded-full py-2"
+                                className="w-full text-white text-base font-bold bg-custom-blue rounded-full py-2.5 disabled:opacity-50"
+                                disabled={isLoading}
                             >
-                                הרשמה
+                                {isLoading ? 'מתבצעת הרשמה...' : 'הרשמה'}
                             </button>
                             <div>
                                 <Link to="/" className="font-Assistant text-lg text-[#d13658]">

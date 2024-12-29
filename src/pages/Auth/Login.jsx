@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { sendDataToServer } from '../../helpers/Api';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -56,14 +56,13 @@ const Login = () => {
         window.location.href = `${baseURL}/users/google`;
     };
 
-    const togglePasswordVisibility = (e) => {
+    const togglePasswordVisibility = useCallback((e) => {
         e.preventDefault();
-        setShowPassword((prevState) => !prevState);
-    };
-
+        setShowPassword(prev => !prev);
+    }, []);
 
     return (
-        <div className="relative flex min-h-screen justify-center bg-white lg:bg-custom-categoryImage md:bg-custom-categoryImage bg-cover bg-center min-w-screen">
+        <div className="relative flex h-screen justify-center bg-white lg:bg-custom-categoryImage md:bg-custom-categoryImage bg-cover bg-center min-w-screen">
             <div className="lg:absolute lg:inset-0 lg:bg-overlay-black lg:bg-opacity-80 md:absolute md:inset-0 md:bg-overlay-black md:bg-opacity-80"></div>
 
             {isLoading && <Loader />}
@@ -111,7 +110,11 @@ const Login = () => {
                                 </button>
                             </div>
 
-                            <button type="submit" className="w-full text-white text-[20px] font-bold bg-custom-blue focus:outline-none rounded-full px-5 font-Assistant py-2">כניסה</button>
+                            <button
+                                type="submit"
+                                className="w-full text-white text-[20px] font-bold bg-custom-blue focus:outline-none rounded-full px-5 font-Assistant py-2"
+                                disabled={isLoading}
+                            >   {isLoading ? 'מתבצעת התחברות...' : 'כניסה'}</button>
                             <div>
                                 <Link to={'/signup'} className="font-Assistant text-lg text-[#d13658]">
                                     להרשמה לחצו כאן
