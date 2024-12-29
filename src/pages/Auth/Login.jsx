@@ -56,9 +56,10 @@ const Login = () => {
         window.location.href = `${baseURL}/users/google`;
     };
 
-    const togglePasswordVisibility = () => {
-        setShowPassword(prevState => !prevState)
-    }
+    const togglePasswordVisibility = (e) => {
+        e.preventDefault();
+        setShowPassword((prevState) => !prevState);
+    };
 
 
     return (
