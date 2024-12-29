@@ -62,12 +62,15 @@ const Login = () => {
     }, []);
 
     return (
-        <div className="relative flex h-screen justify-center overflow-x-hidden overflow-y-hidden bg-white lg:bg-custom-categoryImage md:bg-custom-categoryImage bg-cover bg-center">
+        <div className="relative flex min-h-screen justify-center bg-white lg:bg-custom-categoryImage md:bg-custom-categoryImage bg-cover bg-center">
             <div className="lg:absolute lg:inset-0 lg:bg-overlay-black lg:bg-opacity-80 md:absolute md:inset-0 md:bg-overlay-black md:bg-opacity-80"></div>
 
             {isLoading && <Loader />}
 
-            <div className="relative flex-col items-center text-center mx-auto p-4 w-full md:w-80 max-w-md bg-white md:bg-opacity-100 md:rounded-lg md:shadow-lg z-10 md:mt-0  md:top-5 md:absolute md:translate-x-[-50%] md:translate-y-0 md:left-1/2 md:transform md:px-6 overflow-y-auto" dir="rtl">
+            <div
+                className="relative flex flex-col items-center text-center mx-auto p-4 w-full md:w-80 max-w-md bg-white md:bg-opacity-100 md:rounded-lg md:shadow-lg z-10 md:my-8 md:px-6"
+                dir="rtl"
+            >
                 <HeaderFormLogin />
                 {/* Bottom Section */}
                 <div className="w-full flex items-center justify-center md:py-0 lg:py-0">
