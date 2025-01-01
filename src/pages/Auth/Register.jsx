@@ -14,7 +14,6 @@ const Register = () => {
 
     const [formData, setFormData] = useState({
         firstName: '',
-        lastName: '',
         email: '',
         password: '',
         phoneNumber: '',
@@ -30,7 +29,7 @@ const Register = () => {
         const { name, value } = event.target;
         setFormData(prevState => ({
             ...prevState,
-            [name]: value
+            [name]: name === "email" ? value.toLowerCase() : value,
         }));
     };
 
@@ -97,15 +96,6 @@ const Register = () => {
                                     className="text-sm border font-Assistant border-gray-300 text-black rounded-full block w-full p-2"
                                     placeholder="שם מלא"
                                     value={formData.firstName}
-                                    onChange={handleChange}
-                                    required
-                                />
-                                <FormInput
-                                    type="text"
-                                    name="lastName"
-                                    className="text-sm border font-Assistant border-gray-300 text-black rounded-full block w-full p-2"
-                                    placeholder="שם משפחה"
-                                    value={formData.lastName}
                                     onChange={handleChange}
                                     required
                                 />

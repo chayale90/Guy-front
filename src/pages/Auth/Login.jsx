@@ -27,7 +27,7 @@ const Login = () => {
         const { name, value } = event.target;
         setFormData(prevState => ({
             ...prevState,
-            [name]: value
+            [name]: name === "email" ? value.toLowerCase() : value,
         }));
     };
 
