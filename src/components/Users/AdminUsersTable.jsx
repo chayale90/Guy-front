@@ -40,7 +40,7 @@ const AdminUsersTable = ({ users, setUsers }) => {
             </div>
             <div className="scroll">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500" dir='rtl'>
-                    <TableHeader headers={['#', 'שם מלא', 'שם משפחה', 'אימייל', 'סיסמא', 'פלאפון', 'חסימת משתמש',]} />
+                    <TableHeader headers={['#', 'שם מלא', 'אימייל', 'סיסמא', 'פלאפון', 'חסימת משתמש',]} />
                     <tbody>
                         {
                             users.length > 0 && users.map((user, index) => (
@@ -50,9 +50,6 @@ const AdminUsersTable = ({ users, setUsers }) => {
                                     </td>
                                     <td className="px-6 py-4 font-normal text-black font-Assistant text-[18px] whitespace-nowrap">
                                         {user.firstName}
-                                    </td>
-                                    <td className="px-6 py-4 text-black font-Assistant text-[18px]">
-                                        {user.lastName}
                                     </td>
                                     <td className="px-6 py-4 text-black font-Assistant text-[18px]">
                                         {user.email}
