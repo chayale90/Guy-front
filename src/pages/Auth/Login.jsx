@@ -8,6 +8,7 @@ import WhatsUppButton from '../../components/Form/WhatsUppButton';
 import HeaderFormLogin from '../../components/Form/HeaderFormLogin';
 import GoogleButton from '../../components/Form/GoogleButton';
 import { FaEyeSlash, FaEye } from "react-icons/fa";
+import { jwtDecode } from "jwt-decode";
 
 
 const baseURL = import.meta.env.VITE_BASE_URL;
@@ -38,9 +39,13 @@ const Login = () => {
         try {
             const response = await sendDataToServer('/users/login', formData);
             toast.success('התחברת בהצלחה !');
-            localStorage.setItem('user', JSON.stringify(response));
 
-            if (response.role === 'admin') {
+            localStorage.setItem('user', JSON.stringify(response));
+            localStorage.setItem('token', response.token);
+
+            const decodedToken = jwtDecode(response.token);
+            if (decodedToken.id.role === 'admin') {
+                console.log('in admin page')
                 navigate('/admin');
             } else {
                 navigate('/home');
@@ -51,6 +56,7 @@ const Login = () => {
             setIsLoading(false);
         }
     };
+
 
     const handleGoogleLogin = () => {
         window.location.href = `${baseURL}/users/google`;
