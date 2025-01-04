@@ -10,6 +10,8 @@ const axiosInstance = axios.create({
     },
 });
 
+
+
 export const sendDataToServer = async (endpoint, data) => {
     try {
 
