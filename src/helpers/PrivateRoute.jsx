@@ -2,6 +2,8 @@ import { jwtDecode } from 'jwt-decode';
 import { Navigate } from 'react-router-dom';
 const PrivateRoute = ({ element, adminOnly }) => {
 
+
+
     const token = localStorage.getItem('token');
 
     if (!token) {
