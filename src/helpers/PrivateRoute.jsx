@@ -19,7 +19,7 @@ const PrivateRoute = ({ element, adminOnly }) => {
             return <Navigate to="/" replace />;
         }
 
-        if (adminOnly && decodedToken.role !== 'admin') {  // Remove .id
+        if (adminOnly && decodedToken.role !== 'admin') {
             return <Navigate to="/" replace />;
         }
 
@@ -31,25 +31,6 @@ const PrivateRoute = ({ element, adminOnly }) => {
         return <Navigate to="/" replace />;
     }
 };
-// const PrivateRoute = ({ element, adminOnly }) => {
-//     const token = localStorage.getItem('token');
 
-//     if (!token) {
-//         return <Navigate to="/" replace />;
-//     }
-
-//     try {
-//         const decodedToken = jwtDecode(token);
-
-//         if (adminOnly && decodedToken.id.role !== 'admin') {
-//             return <Navigate to="/" replace />;
-//         }
-
-//         return element;
-//     } catch (error) {
-//         console.error('Invalid token:', error.message);
-//         return <Navigate to="/" replace />;
-//     }
-// };
 
 export default PrivateRoute;

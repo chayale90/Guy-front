@@ -57,30 +57,6 @@ const Login = () => {
             setIsLoading(false);
         }
     };
-    // const handleLogin = async (e) => {
-    //     e.preventDefault();
-    //     setIsLoading(true);
-
-    //     try {
-    //         const response = await sendDataToServer('/users/login', formData);
-    //         toast.success('התחברת בהצלחה !');
-
-    //         localStorage.setItem('user', JSON.stringify(response));
-    //         localStorage.setItem('token', response.token);
-
-    //         const decodedToken = jwtDecode(response.token);
-    //         if (decodedToken.id.role === 'admin') {
-    //             console.log('in admin page')
-    //             navigate('/admin');
-    //         } else {
-    //             navigate('/home');
-    //         }
-    //     } catch (error) {
-    //         toast.error(error.message);
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // };
 
 
     const handleGoogleLogin = () => {
