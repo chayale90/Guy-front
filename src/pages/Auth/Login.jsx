@@ -41,7 +41,6 @@ const Login = () => {
             const response = await sendDataToServer('/users/login', formData);
             toast.success('התחברת בהצלחה !');
 
-
             localStorage.setItem('username', response.firstName);
             localStorage.setItem('token', response.token);
 
