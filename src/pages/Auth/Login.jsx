@@ -41,12 +41,12 @@ const Login = () => {
             const response = await sendDataToServer('/users/login', formData);
             toast.success('התחברת בהצלחה !');
 
-            // Only store the token
+
             localStorage.setItem('username', response.firstName);
             localStorage.setItem('token', response.token);
 
             const decodedToken = jwtDecode(response.token);
-            if (decodedToken.role === 'admin') {  // Remove .id
+            if (decodedToken.role === 'admin') {
                 navigate('/admin');
             } else {
                 navigate('/home');
