@@ -8,6 +8,7 @@ import WhatsUppButton from '../../components/Form/WhatsUppButton';
 import HeaderFormLogin from '../../components/Form/HeaderFormLogin';
 import GoogleButton from '../../components/Form/GoogleButton';
 import { FaEyeSlash, FaEye } from "react-icons/fa";
+import { jwtDecode } from "jwt-decode";
 
 
 const baseURL = import.meta.env.VITE_BASE_URL;
@@ -31,16 +32,20 @@ const Login = () => {
         }));
     };
 
+
     const handleLogin = async (e) => {
         e.preventDefault();
         setIsLoading(true);
 
         try {
             const response = await sendDataToServer('/users/login', formData);
-            toast.success('!התחברת בהצלחה');
-            localStorage.setItem('user', JSON.stringify(response));
+            toast.success('התחברת בהצלחה !');
 
-            if (response.role === 'admin') {
+            localStorage.setItem('username', response.firstName);
+            localStorage.setItem('token', response.token);
+
+            const decodedToken = jwtDecode(response.token);
+            if (decodedToken.role === 'admin') {
                 navigate('/admin');
             } else {
                 navigate('/home');
@@ -51,6 +56,8 @@ const Login = () => {
             setIsLoading(false);
         }
     };
+
+
 
     const handleGoogleLogin = () => {
         window.location.href = `${baseURL}/users/google`;

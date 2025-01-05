@@ -36,11 +36,10 @@ const HomePage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const user = localStorage.getItem('user');
+            const user = localStorage.getItem('username');
             if (user) {
                 try {
-                    const parsedUser = JSON.parse(user);
-                    setUserName(parsedUser?.firstName || '');
+                    setUserName(user);
                 } catch (error) {
                     console.error("Error parsing JSON:", error);
                 }
