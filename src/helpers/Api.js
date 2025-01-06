@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -14,7 +15,6 @@ const axiosInstance = axios.create({
 
 export const sendDataToServer = async (endpoint, data) => {
     try {
-
         const response = await axiosInstance.post(endpoint, data);
         return response.data;
     } catch (error) {
@@ -23,17 +23,17 @@ export const sendDataToServer = async (endpoint, data) => {
 };
 
 export const sendDataToServerAdmin = async (endpoint, data) => {
-    const userJSON = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
     try {
-        const user = JSON.parse(userJSON);
-        if (!user) {
-            throw new Error('No token available');
+        const decodedToken = jwtDecode(token);
+        if (decodedToken.role !== 'admin') {
+            throw new Error('No Authorized');
         }
 
         const response = await axiosInstance.post(endpoint, data, {
 
             headers: {
-                Authorization: `Bearer ${user.token}`,
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -62,16 +62,16 @@ export const getDataFromServer = async (endpoint) => {
 };
 
 export const getDataFromServerAdmin = async (endpoint) => {
-    const userJSON = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
     try {
-        const user = JSON.parse(userJSON);
-        if (!user.token) {
-            throw new Error('No token available');
+        const decodedToken = jwtDecode(token);
+        if (decodedToken.role !== 'admin') {
+            throw new Error('No Authorized');
         }
 
         const response = await axiosInstance.get(endpoint, {
             headers: {
-                Authorization: `Bearer ${user.token}`,
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -84,16 +84,15 @@ export const getDataFromServerAdmin = async (endpoint) => {
 
 
 export const updateDataToServer = async (endpoint, data) => {
-    const userJSON = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
     try {
-        const user = JSON.parse(userJSON);
-        if (!user.token) {
-            throw new Error('No token available');
+        const decodedToken = jwtDecode(token);
+        if (decodedToken.role !== 'admin') {
+            throw new Error('No Authorized');
         }
-
         const response = await axiosInstance.patch(endpoint, data, {
             headers: {
-                Authorization: `Bearer ${user.token}`,
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -105,16 +104,16 @@ export const updateDataToServer = async (endpoint, data) => {
 };
 
 export const deleteData = async (endpoint, data) => {
-    const userJSON = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
     try {
-        const user = JSON.parse(userJSON);
-        if (!user.token) {
-            throw new Error('No token available');
+        const decodedToken = jwtDecode(token);
+        if (decodedToken.role !== 'admin') {
+            throw new Error('No Authorized');
         }
 
         const response = await axiosInstance.delete(endpoint, {
             headers: {
-                Authorization: `Bearer ${user.token}`,
+                Authorization: `Bearer ${token}`,
             },
         });
         return response;
@@ -124,16 +123,16 @@ export const deleteData = async (endpoint, data) => {
 };
 
 export const updateFoodToServer = async (endpoint, data) => {
-    const userJSON = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
     try {
-        const user = JSON.parse(userJSON);
-        if (!user.token) {
-            throw new Error('No token available');
+        const decodedToken = jwtDecode(token);
+        if (decodedToken.role !== 'admin') {
+            throw new Error('No Authorized');
         }
 
         const response = await axiosInstance.put(endpoint, data, {
             headers: {
-                Authorization: `Bearer ${user.token}`,
+                Authorization: `Bearer ${token}`,
             },
         });
 
