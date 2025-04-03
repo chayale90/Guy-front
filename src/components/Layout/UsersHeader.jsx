@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Lottie from 'react-lottie';
-import animationData from '../lotties/animation-lottie.json';
+import animationData from '../../lotties/animation-lottie.json';
 import { CiSearch } from "react-icons/ci";
+import { Link } from 'react-router-dom';
 
 const defaultOptions = {
     loop: true,
@@ -43,7 +44,11 @@ const UsersHeader = ({ foodList, setFoodList, setIsSearching, clearSearch }) => 
         }
     };
     return (
-        <section className="mt-5 ">
+        <section className="mt-5">
+            {/* Profile Icon (only on small screens) */}
+            <div className="absolute left-5 top-5 flex md:hidden lg:hidden">
+                <Link to={'/profile'} className="fa-solid fa-user text-2xl" />
+            </div>
             <div className="relative flex flex-col md:flex-row items-center" dir='rtl'>
                 <input
                     dir='rtl'

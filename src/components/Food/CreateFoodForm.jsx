@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
-import Loader from '../Loader';
+import Loader from '../ui/Loader';
 import FormInput from '../Form/FormInput';
 import FormSelectInput from '../Form/FormSelectInput';
 import FormTitle from '../Form/FormTitle';

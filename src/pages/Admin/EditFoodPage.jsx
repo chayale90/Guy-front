@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
-import Loader from '../../components/Loader';
+import Loader from '../../components/ui/Loader';
 import FormTitle from '../../components/Form/FormTitle';
 import FormInput from '../../components/Form/FormInput';
 import FormSelectInput from '../../components/Form/FormSelectInput';

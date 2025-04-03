@@ -33,7 +33,6 @@ const CategoryPage = () => {
     const [foodList, setFoodList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [calories, setCalories] = useState(null);
-    const foodCache = {};
 
     const categories = [
         { category: 'חלב מוצריו ותחליפיו', id: 1 },
@@ -101,10 +100,10 @@ const CategoryPage = () => {
                     <p className='font-Assistant'>מנה = {checkCategoryCalories(categoryName)} קלוריות</p>
                 </div>
 
-                <div className='bg-custom-whitesmoke rounded-lg lg:mx-32 md:p-10 md:justify-center md:flex md:items-center mt-5 lg:p-5 lg:justify-center lg:flex lg:items-center' style={{ boxShadow: '0px 1px 5px rgba(0, 0, 0, 0.06)' }}>
+                <div className='bg-custom-whitesmoke rounded-lg lg:mx-32 md:p-10 md:justify-center md:flex md:items-center lg:p-5 lg:justify-center lg:flex lg:items-center' style={{ boxShadow: '0px 1px 5px rgba(0, 0, 0, 0.06)' }}>
                     <div className='text-center lg:w-full lg:max-w-md md:max-w-md md:w-full'>
                         <p className='text-center text-[20px] py-3 font-Assistant text-black font-bold lg:text-[32px] md:text-[32px]'>מחשבון גודל מנה במוצר סגור</p>
-                        <p className='text-center text-[16px] lg:text-[24px] md:text-[24px] font-Assistant font-normal text-[#AFAFAF] break-words'>יש להזין אנרגיה (קלוריות) לקבלת גודל מנה</p>
+                        <p className='text-center text-[16px] lg:text-[24px] md:text-[18px] font-Assistant font-normal text-black break-words'>יש להזין אנרגיה (קלוריות) לקבלת גודל מנה</p>
                         <div className='w-full text-center flex py-4 justify-between lg:justify-center lg:items-center md:justify-center md:items-center md:mx-2'>
                             <div className='text-[16px] font-normal flex items-center mx-2'>
                                 <span className='rounded-lg border py-1.5 px-3 font-Assistant text-sm text-black border-[#D9D9D9] bg-transparent h-8 w-16 text-center'>
