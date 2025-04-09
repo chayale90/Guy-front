@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import Logo from './Logo';
 import { Link } from 'react-router-dom';
+import Logo from './Logo';
 
 const AdminHeader = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -11,10 +11,7 @@ const AdminHeader = () => {
 
     return (
         <nav className="bg-custom-header-bg z-50">
-            <div className="flex flex-wrap items-center justify-between mx-auto">
-                <Link to={'/admin'} className="flex items-center rtl:space-x-reverse lg:hidden">
-                    <Logo />
-                </Link>
+            <div className="flex flex-wrap items-center justify-between mx-auto" dir='rtl'>
                 <div className="flex">
                     <button
                         type="button"
@@ -57,12 +54,13 @@ const AdminHeader = () => {
                         </button>
                     )}
                 </div>
-                <div className={`items-center justify-between ${isCollapsed ? 'block' : 'hidden'} w-full md:flex md:w-auto md:order-1`} id="navbar-search" dir='rtl'>
-                    <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0">
-                        <Link to={'/admin'} className='block py-2 px-3 text-black font-Assistant font-bold text-[20px]'>מאכלים</Link>
-                        <Link to={'/admin/users'} className='block py-2 px-3 text-black font-Assistant font-bold text-[20px]'>משתמשים</Link>
-                    </ul>
-                </div>
+
+            </div>
+            <div className={`items-center justify-between ${isCollapsed ? 'block' : 'hidden'} w-full md:flex md:w-auto md:order-1 mx-3`} id="navbar-search" dir='rtl'>
+                <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0">
+                    <Link to={'/admin'} className='block py-2 px-3 text-black font-Assistant font-bold text-[20px]'>מאכלים</Link>
+                    <Link to={'/admin/users'} className='block py-2 px-3 text-black font-Assistant font-bold text-[20px]'>משתמשים</Link>
+                </ul>
             </div>
         </nav>
     )

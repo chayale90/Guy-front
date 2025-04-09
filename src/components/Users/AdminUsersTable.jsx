@@ -3,7 +3,7 @@ import TableHeader from './TableHeader'
 import { updateDataToServer } from '../../helpers/Api';
 import { toast } from 'react-toastify';
 import { useCallback, useState } from 'react';
-import Loader from '../Loader';
+import Loader from '../ui/Loader';
 
 
 
@@ -33,12 +33,12 @@ const AdminUsersTable = ({ users, setUsers }) => {
 
 
     return (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div className="overflow-x-auto max-h-[500px] overflow-y-auto">
             {loadingUserIds.length > 0 && <Loader />}
             <div className="py-4 text-2xl text-center">
                 <FormTitle text="משתמשים" />
             </div>
-            <div className="scroll">
+            <div className="">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500" dir='rtl'>
                     <TableHeader headers={['#', 'שם מלא', 'אימייל', 'סיסמא', 'פלאפון', 'חסימת משתמש',]} />
                     <tbody>

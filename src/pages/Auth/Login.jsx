@@ -3,15 +3,13 @@ import { sendDataToServer } from '../../helpers/Api';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import FormInput from '../../components/Form/FormInput';
-import Loader from '../../components/Loader';
+import Loader from '../../components/ui/Loader';
 import WhatsUppButton from '../../components/Form/WhatsUppButton';
 import HeaderFormLogin from '../../components/Form/HeaderFormLogin';
-import GoogleButton from '../../components/Form/GoogleButton';
+// import GoogleButton from '../../components/Form/GoogleButton';
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { jwtDecode } from "jwt-decode";
 
-
-const baseURL = import.meta.env.VITE_BASE_URL;
 
 const Login = () => {
 
@@ -41,8 +39,10 @@ const Login = () => {
             const response = await sendDataToServer('/users/login', formData);
             toast.success('התחברת בהצלחה !');
 
+            console.log(response)
             localStorage.setItem('username', response.firstName);
             localStorage.setItem('token', response.token);
+            localStorage.setItem('userId', response.userId);
 
             const decodedToken = jwtDecode(response.token);
             if (decodedToken.role === 'admin') {
@@ -57,55 +57,47 @@ const Login = () => {
         }
     };
 
-
-
-    const handleGoogleLogin = () => {
-        window.location.href = `${baseURL}/users/google`;
-    };
-
     const togglePasswordVisibility = useCallback((e) => {
         e.preventDefault();
         setShowPassword(prev => !prev);
     }, []);
 
     return (
-        <div className="relative flex min-h-screen justify-center bg-white lg:bg-custom-categoryImage md:bg-custom-categoryImage bg-cover bg-center">
-            <div className="lg:absolute lg:inset-0 lg:bg-overlay-black lg:bg-opacity-80 md:absolute md:inset-0 md:bg-overlay-black md:bg-opacity-80"></div>
+        <div className="relative flex min-h-screen items-center justify-center bg-white md:bg-custom-categoryImage bg-cover bg-center">
+            {/* Overlay - מוסתר במובייל */}
+            <div className="hidden md:block absolute inset-0 bg-overlay-black bg-opacity-80"></div>
 
             {isLoading && <Loader />}
 
             <div
-                className="relative flex flex-col items-center text-center mx-auto p-4 w-full md:w-80 max-w-md bg-white md:bg-opacity-100 md:rounded-lg md:shadow-lg z-10 md:my-8 md:px-6"
+                className="relative flex flex-col items-center text-center mx-auto p-4 w-full sm:w-96 md:w-[420px] 
+            bg-white md:bg-opacity-100 md:rounded-lg md:shadow-lg z-10 
+            min-h-[50vh] md:min-h-[60vh] lg:min-h-[65vh] max-h-[90vh] overflow-auto"
                 dir="rtl"
             >
                 <HeaderFormLogin />
-                {/* Bottom Section */}
-                <div className="w-full flex items-center justify-center md:py-0 lg:py-0">
-                    <div className="space-y-2 w-full">
-                        <GoogleButton handleGoogleLogin={handleGoogleLogin} />
-                        <form className="space-y-4" onSubmit={handleLogin}>
-                            <div className="flex items-center justify-center w-full">
-                                <div className="flex-1 h-0.5 border-t border-[#F2F2F2]"></div>
-                                <span className="mx-4 text-black font-light font-Assistant text-[18.82px]">או</span>
-                                <div className="flex-1 h-0.5 border-t border-[#F2F2F2]"></div>
-                            </div>
 
-                            <div>
+                {/* Form Section */}
+                <div className="w-full flex flex-col py-2 flex-grow items-center justify-center">
+                    <div className="space-y-3 w-full">
+                        <form className="space-y-3 w-full" onSubmit={handleLogin}>
+                            <div className='flex items-center justify-center w-full'>
                                 <FormInput
                                     type="email"
                                     name="email"
-                                    className="text-[16px] border font-Assistant border-gray-300 text-black placeholder:font-light rounded-full block w-full p-2 placeholder:text-[#B5B5B5] placeholder:font-Assistant"
+                                    className="text-sm border font-Assistant border-gray-300 text-black rounded-full block w-full p-2"
                                     placeholder="אימייל"
                                     value={formData.email}
                                     onChange={handleChange}
                                     required
                                 />
                             </div>
+
                             <div className="relative">
                                 <FormInput
                                     type={showPassword ? "text" : "password"}
                                     name="password"
-                                    className="text-[16px] border font-Assistant border-gray-300 text-black placeholder:font-light rounded-full block w-full p-2 placeholder:text-[#B5B5B5] placeholder:font-Assistant"
+                                    className="text-sm border font-Assistant border-gray-300 text-black rounded-full block w-full p-2"
                                     placeholder="סיסמא"
                                     value={formData.password}
                                     onChange={handleChange}
@@ -122,16 +114,20 @@ const Login = () => {
 
                             <button
                                 type="submit"
-                                className="w-full text-white text-[20px] font-bold bg-custom-blue focus:outline-none rounded-full px-5 font-Assistant py-2"
+                                className="w-full text-white text-[18px] font-bold bg-custom-blue focus:outline-none rounded-full px-5 font-Assistant py-2"
                                 disabled={isLoading}
-                            >   {isLoading ? 'מתבצעת התחברות...' : 'כניסה'}</button>
+                            >
+                                {isLoading ? 'מתבצעת התחברות...' : 'כניסה'}
+                            </button>
+
                             <div>
-                                <Link to={'/signup'} className="font-Assistant text-lg text-[#d13658]">
+                                <Link to={'/signup'} className="font-Assistant text-lg text-[#e3090d]">
                                     להרשמה לחצו כאן
                                 </Link>
                             </div>
                         </form>
                     </div>
+
                     {/* WhatsApp Button */}
                     <WhatsUppButton variant="login" />
                 </div>

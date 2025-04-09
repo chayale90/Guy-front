@@ -11,9 +11,10 @@ import EditFoodPage from '../pages/Admin/EditFoodPage';
 import AdminLayout from './AdminLayout';
 import HomePage from '../pages/User/HomePage';
 import CategoryPage from '../pages/Food/CategoryPage';
-import GoogleAuthHandler from '../pages/Auth/GoogleAuthHandler';
-import Nav from '../components/Nav';
+// import GoogleAuthHandler from '../pages/Auth/GoogleAuthHandler';
 import Register from '../pages/Auth/Register';
+import ProfilePage from '../pages/User/ProfilePage';
+import Nav from '../components/Layout/Nav';
 
 const AppRoutes = () => {
     const location = useLocation();
@@ -25,37 +26,27 @@ const AppRoutes = () => {
                 <Nav showNav={shouldShowNav} />
             </div>
             <Routes>
+                {/* Auth Routes */}
                 <Route path="/" element={<Login />} />
                 <Route path="/signup" element={<Register />} />
-                <Route path="/google-auth" element={<GoogleAuthHandler />} />
+                {/* <Route path="/google-auth" element={<GoogleAuthHandler />} /> */}
+
+                {/* User Routes */}
                 <Route path="/home" element={<PrivateRoute element={<HomePage />} />} />
                 <Route path="/home/category/:categoryName" element={<PrivateRoute element={<CategoryPage />} />} />
+                <Route path="/profile" element={<PrivateRoute element={<ProfilePage />} />} />
 
                 {/* Protected Admin Route */}
+                {/* Admin Routes */}
                 <Route path="/admin" element={<AdminLayout />}>
-                    <Route
-                        index
-                        element={<PrivateRoute element={<AdminHomePage />} adminOnly />}
-                    />
-                    <Route
-                        path="users"
-                        element={<PrivateRoute element={<AdminUsers />} adminOnly />}
-                    />
-                    <Route
-                        path="createuser"
-                        element={<PrivateRoute element={<AdminCreateUser />} adminOnly />}
-                    />
-                    <Route
-                        path="createfood"
-                        element={<PrivateRoute element={<CreateFoodForm />} adminOnly />}
-                    />
-                    <Route
-                        path="editfood/:foodId"
-                        element={<PrivateRoute element={<EditFoodPage />} adminOnly />}
-                    />
+                    <Route index element={<PrivateRoute element={<AdminHomePage />} adminOnly />} />
+                    <Route path="users" element={<PrivateRoute element={<AdminUsers />} adminOnly />} />
+                    <Route path="createuser" element={<PrivateRoute element={<AdminCreateUser />} adminOnly />} />
+                    <Route path="createfood" element={<PrivateRoute element={<CreateFoodForm />} adminOnly />} />
+                    <Route path="editfood/:foodId" element={<PrivateRoute element={<EditFoodPage />} adminOnly />} />
                 </Route>
 
-                {/* Route for Not Found */}
+                {/* Catch-All 404 Route */}
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </>

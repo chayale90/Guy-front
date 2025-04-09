@@ -12,7 +12,6 @@ const axiosInstance = axios.create({
 });
 
 
-
 export const sendDataToServer = async (endpoint, data) => {
     try {
         const response = await axiosInstance.post(endpoint, data);
@@ -97,7 +96,15 @@ export const updateDataToServer = async (endpoint, data) => {
         });
 
         return response.data;
+    } catch (error) {
+        throw new Error('שגיאה. נסה שוב מאוחר יותר');
+    }
+};
 
+export const updateData = async (endpoint, data) => {
+    try {
+        const response = await axiosInstance.put(endpoint, data);
+        return response.data;
     } catch (error) {
         throw new Error('שגיאה. נסה שוב מאוחר יותר');
     }

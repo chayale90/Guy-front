@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import TableProductsTable from '../../components/Food/TableProductsTable'
 import { getDataFromServer } from '../../helpers/Api'
 import { Link } from 'react-router-dom'
+import Loader from '../../components/ui/Loader'
 
 const AdminHomePage = () => {
     const [foodList, setFoodList] = useState([]);
@@ -34,7 +35,7 @@ const AdminHomePage = () => {
 
 
     const handleSearch = (e) => {
-        const searchTerm = e.target.value.trim().toLowerCase();
+        const searchTerm = e.target.value.toLowerCase();
         setSearchInput(searchTerm);
         if (!searchTerm) {
             setFilteredFoodList(foodList);
@@ -71,9 +72,12 @@ const AdminHomePage = () => {
                 </Link>
             </div>
 
-            <div className='min-w-full mx-auto py-8'>
-                <TableProductsTable foodList={filteredFoodList} setFoodList={setFoodList} filteredFoodList={filteredFoodList} searchInput={searchInput} showButtons={true} />
-            </div>
+            {isLoading ? (<Loader />) : (
+                <div className='min-w-full mx-auto py-8'>
+                    <TableProductsTable foodList={filteredFoodList} setFoodList={setFoodList} filteredFoodList={filteredFoodList} searchInput={searchInput} showButtons={true} />
+                </div>
+            )}
+
         </>
     )
 }

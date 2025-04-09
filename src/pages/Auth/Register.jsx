@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import FormInput from '../../components/Form/FormInput';
-import Loader from '../../components/Loader';
+import Loader from '../../components/ui/Loader';
 import WhatsUppButton from '../../components/Form/WhatsUppButton';
 import HeaderFormLogin from '../../components/Form/HeaderFormLogin';
 import { FaEyeSlash, FaEye } from "react-icons/fa";
@@ -17,6 +17,7 @@ const Register = () => {
         email: '',
         password: '',
         phoneNumber: '',
+        weight: '',
         confirmPassword: '',
     });
     const [isLoading, setIsLoading] = useState(false);
@@ -40,6 +41,11 @@ const Register = () => {
         if (formData.password !== formData.confirmPassword) {
             setErrorConfirmPassword(true);
             toast.error('הסיסמאות אינן תואמות');
+            return;
+        }
+
+        if (isNaN(formData.weight) || formData.weight < 30 || formData > 200) {
+            toast.error('משקל אינו תקין');
             return;
         }
 
@@ -141,6 +147,15 @@ const Register = () => {
                                 )}
                                 <FormInput
                                     type="number"
+                                    name="weight"
+                                    className="text-sm border font-Assistant border-gray-300 text-black rounded-full block w-full p-2"
+                                    placeholder="משקל"
+                                    value={formData.weight}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <FormInput
+                                    type="number"
                                     name="phoneNumber"
                                     className="text-sm border font-Assistant border-gray-300 text-black rounded-full block w-full p-2"
                                     placeholder="טלפון"
@@ -156,7 +171,7 @@ const Register = () => {
                                 {isLoading ? 'מתבצעת הרשמה...' : 'הרשמה'}
                             </button>
                             <div>
-                                <Link to="/" className="font-Assistant text-lg text-[#d13658]">
+                                <Link to="/" className="font-Assistant text-lg text-[#e3090d]">
                                     להתחבר לחצו כאן
                                 </Link>
                             </div>
