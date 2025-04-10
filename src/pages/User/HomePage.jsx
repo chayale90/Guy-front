@@ -3,7 +3,7 @@ import { getDataFromServer } from '../../helpers/Api';
 import CategoryCards from '../../components/Food/CategoryCards';
 import TableProductsTable from '../../components/Food/TableProductsTable';
 import UsersHeader from '../../components/Layout/UsersHeader';
-import { mappedCategories } from '../../helpers/categories';
+import { categories } from '../../helpers/categories';
 import Footer from '../../components/Layout/Footer';
 import WelcomeUser from '../../components/Users/WelcomeUser';
 
@@ -79,7 +79,7 @@ const HomePage = () => {
                     </>
                 )}
                 {!isSearching && (
-                    <CategoryCards categoriesList={mappedCategories} isCarousel={false} />
+                    <CategoryCards categoriesList={categories} isCarousel={false} />
                 )}
             </div>
             <Footer />
