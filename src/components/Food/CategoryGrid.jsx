@@ -11,7 +11,9 @@ const CategoryGrid = ({ categoriesList }) => {
                                 <img
                                     src={item.image}
                                     className='w-full lg:max-h-48 object-cover bg-center rounded-[18.51px] break-words'
+                                    onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
                                     loading="lazy"
+                                    decoding="async"
                                     alt={item.category}
                                 />
                                 <div className='flex justify-end'>
