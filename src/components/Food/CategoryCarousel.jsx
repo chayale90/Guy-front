@@ -23,7 +23,6 @@ const checkCategory = (categoryName) => {
 };
 
 const CategoryCarousel = ({ categoriesList, categoryName }) => {
-    window.scrollTo(0, 0);
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
