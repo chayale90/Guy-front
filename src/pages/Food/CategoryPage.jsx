@@ -5,7 +5,6 @@ import FormTitle from '../../components/Form/FormTitle';
 import TableProductsTable from '../../components/Food/TableProductsTable';
 import { calculateCalories, checkCategoryCalories } from '../../utils/CheckFoodCalories';
 import CategoryCards from '../../components/Food/CategoryCards';
-
 import vegetablesImage from '/images/vegetables.webp';
 import cerealsImage from '/images/cereals.webp';
 import snackingImage from '/images/snacking.webp';
@@ -18,7 +17,6 @@ import logo from '/images/guy_levi_logo.webp';
 
 
 const checkCategory = (categoryName) => {
-
     switch (categoryName) {
         case 'ירקות': return vegetablesImage;
         case 'דגנים וקטניות': return cerealsImage;
