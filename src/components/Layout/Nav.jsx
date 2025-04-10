@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import Logo from './Logo';
 import { jwtDecode } from 'jwt-decode';
+import { FaUser } from "react-icons/fa";
 
 const Nav = ({ showNav = true }) => {
     const [admin, setAdmin] = useState(null);
@@ -49,8 +50,9 @@ const Nav = ({ showNav = true }) => {
 
             {/* Profile Icon on the right (only for users, not admins) */}
             {!isLoading && admin === false && (
-                <Link to={'/profile'} className='ml-auto p-2'>
-                    <i className="fa-solid fa-user text-2xl"></i>
+                <Link to={'/profile'} className='ml-auto p-2 flex flex-col items-center'>
+                    <FaUser size={28} color='#1e19de' />
+                    <span className='font-Assistant font-normal text-[#e30a0c]'>איזור אישי</span>
                 </Link>
             )}
         </nav>

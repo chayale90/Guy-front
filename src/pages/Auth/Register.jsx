@@ -89,7 +89,6 @@ const Register = () => {
             >
                 <HeaderFormLogin />
 
-                <h1 className='font-Assistant text-[22px] font-medium'>הרשמה</h1>
                 {/* Bottom Section */}
                 <div className="w-full flex items-center justify-center py-4 relative">
                     <div className="space-y-2 w-full">

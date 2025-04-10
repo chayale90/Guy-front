@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import vegetablesImage from '/images/ירקות.webp';
-import cerealsImage from '/images/דגנים.webp';
-import snackingImage from '/images/נשנושים.webp';
-import oilImage from '/images/שמנים.webp';
-import fruitsImage from '/images/פירות.webp';
-import meatImage from '/images/חלבון.webp';
-import milkImage from '/images/חלב.webp';
+import vegetablesImage from '/images/vegetables.webp';
+import cerealsImage from '/images/cereals.webp';
+import snackingImage from '/images/snacking.webp';
+import oilImage from '/images/oil.webp';
+import fruitsImage from '/images/fruits.webp';
+import meatImage from '/images/meat.webp';
+import milkImage from '/images/milk.webp';
 import logo from '/images/guy_levi_logo.webp';
 
 const checkCategory = (categoryName) => {
@@ -23,7 +23,7 @@ const checkCategory = (categoryName) => {
 };
 
 const CategoryCarousel = ({ categoriesList, categoryName }) => {
-
+    window.scrollTo(0, 0);
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {

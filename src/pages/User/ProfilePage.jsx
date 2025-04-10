@@ -26,20 +26,58 @@ const ProfilePage = () => {
                 }));
                 setWeights(formattedData);
             } catch (error) {
-                toast.error(error?.msg || "Error Getting weight");
+                toast.error(error?.msg || "שגיאה בקבלת משקל");
             }
         };
         fetchData();
     }, [userId]);
 
+    const labels = weights.map(w => w.date);
+
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: "המשקל שלי",
+                data: weights.map(w => w.weight),
+                backgroundColor: "#e3090d",
+                borderColor: "#1f18de",
+                fill: false,
+            },
+        ],
+    };
+
     const options = {
+        responsive: true,
+        maintainAspectRatio: false,
         plugins: {
             legend: {
                 position: "bottom",
                 display: false,
             },
+            zoom: {
+                pan: {
+                    enabled: true,
+                    mode: "x",
+                },
+                zoom: {
+                    wheel: {
+                        enabled: true,
+                    },
+                    pinch: {
+                        enabled: true,
+                    },
+                    mode: "x",
+                },
+            },
         },
         scales: {
+            x: {
+                ticks: {
+                    autoSkip: true,
+                    maxTicksLimit: 10, // כמה תוויות להציג בבת אחת
+                },
+            },
             y: {
                 min: 30,
                 max: 200,
@@ -49,19 +87,6 @@ const ProfilePage = () => {
                 },
             },
         },
-    };
-
-    const labels = weights.map(w => w.date);
-    const data = {
-        labels,
-        datasets: [
-            {
-                label: "המשקל שלי",
-                data: weights.map(w => w.weight),
-                backgroundColor: "#e3090d",
-                borderColor: "#1f18de",
-            },
-        ],
     };
 
     const handleAddWeight = async () => {
