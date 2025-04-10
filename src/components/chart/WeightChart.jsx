@@ -16,14 +16,16 @@ const WeightChart = ({ data, options }) => {
     return (
         <div className="bg-white shadow-md rounded-lg p-4">
             <h2 className="text-xl font-bold mb-4 text-gray-800" dir="rtl">מעקב משקל</h2>
-            <div style={{
-                display: "flex",
-                justifyContent: "center",
-                height: "300px",
-                width: "100%",
-                maxWidth: "800px",
-            }}>
-                <Line ref={chartRef} options={options} data={data} />
+
+            <div
+                style={{
+                    overflowX: "auto",
+                    width: "100%",
+                }}
+            >
+                <div style={{ minWidth: `${data.labels.length * 40}px`, height: "300px" }}>
+                    <Line ref={chartRef} options={options} data={data} />
+                </div>
             </div>
         </div>
     );

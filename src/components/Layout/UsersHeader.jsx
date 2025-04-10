@@ -3,6 +3,7 @@ import Lottie from 'react-lottie';
 import animationData from '../../lotties/animation-lottie.json';
 import { CiSearch } from "react-icons/ci";
 import { Link } from 'react-router-dom';
+import { FaUser } from 'react-icons/fa';
 
 const defaultOptions = {
     loop: true,
@@ -46,8 +47,11 @@ const UsersHeader = ({ foodList, setFoodList, setIsSearching, clearSearch }) => 
     return (
         <section className="mt-5">
             {/* Profile Icon (only on small screens) */}
-            <div className="absolute left-5 top-5 flex md:hidden lg:hidden">
-                <Link to={'/profile'} className="fa-solid fa-user text-2xl" />
+            <div className="absolute left-5 top-5 flex-col md:hidden lg:hidden ">
+                <Link to={'/profile'} className='ml-auto p-2 flex flex-col items-center'>
+                    <FaUser size={25} color='#433eea' />
+                    <span className='font-Assistant font-normal text-[#e30a0c]'>איזור אישי</span>
+                </Link>
             </div>
             <div className="relative flex flex-col md:flex-row items-center" dir='rtl'>
                 <input

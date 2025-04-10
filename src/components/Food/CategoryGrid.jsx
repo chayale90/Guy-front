@@ -1,29 +1,6 @@
-import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
-import vegetablesImage from '/images/ירקות.webp';
-import cerealsImage from '/images/דגנים.webp';
-import snackingImage from '/images/נשנושים.webp';
-import oilImage from '/images/שמנים.webp';
-import fruitsImage from '/images/פירות.webp';
-import meatImage from '/images/חלבון.webp';
-import milkImage from '/images/חלב.webp';
-import logo from '/images/guy_levi_logo.webp';
-
 const CategoryGrid = ({ categoriesList }) => {
-
-    const categoryImages = useMemo(() => {
-        return {
-            'ירקות': vegetablesImage,
-            'דגנים וקטניות': cerealsImage,
-            'חלב מוצריו ותחליפיו': milkImage,
-            'נשנושים': snackingImage,
-            'פירות': fruitsImage,
-            'עוף בשר דגים ותחליפי חלבון מן הצומח': meatImage,
-            'שומנים': oilImage,
-        };
-    }, []);
-
     return (
         <div className='lg:max-w-screen-lg lg:mx-auto md:max-w-screen-md md:mx-auto p-4 lg:p-4 bg-[#FFFFFF]' dir='rtl'>
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-8">
@@ -36,7 +13,6 @@ const CategoryGrid = ({ categoriesList }) => {
                                     className='w-full lg:max-h-48 object-cover bg-center rounded-[18.51px] break-words'
                                     loading="lazy"
                                     alt={item.category}
-
                                 />
                                 <div className='flex justify-end'>
                                     <p className='text-black text-sm py-3 text-[14px] lg:text-[18px] md:text-[18px] lg:whitespace-nowrap font-Assistant break-words font-bold w-full mr-2 leading-5'>

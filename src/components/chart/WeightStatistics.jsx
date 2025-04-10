@@ -11,7 +11,7 @@ const WeightStatistics = ({ currentWeight, weightChange, onAddWeightClick }) => 
                 </div>
                 <div className="bg-gray-100 p-4 rounded-lg text-center">
                     <p className="text-sm text-gray-600">סה״כ שינויים</p>
-                    <p className={`text-2xl font-bold ${weightChange > 0 ? 'text-green-500' : 'text-red-500'}`}>
+                    <p className={`text-2xl font-bold text-[#e30a0c]`}>
                         {weightChange > 0 ? '+' : ''}{weightChange.toFixed(1)} kg
                     </p>
                 </div>

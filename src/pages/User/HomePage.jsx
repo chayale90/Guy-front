@@ -3,12 +3,13 @@ import { getDataFromServer } from '../../helpers/Api';
 import CategoryCards from '../../components/Food/CategoryCards';
 import TableProductsTable from '../../components/Food/TableProductsTable';
 import UsersHeader from '../../components/Layout/UsersHeader';
-import { sortedCategories } from '../../helpers/categories';
+import { mappedCategories } from '../../helpers/categories';
 import Footer from '../../components/Layout/Footer';
 import WelcomeUser from '../../components/Users/WelcomeUser';
 
 
 const HomePage = () => {
+    window.scrollTo(0, 0);
     const [foodList, setFoodList] = useState([]);
     const [filteredFoodList, setFilteredFoodList] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
@@ -78,7 +79,7 @@ const HomePage = () => {
                     </>
                 )}
                 {!isSearching && (
-                    <CategoryCards categoriesList={sortedCategories} isCarousel={false} />
+                    <CategoryCards categoriesList={mappedCategories} isCarousel={false} />
                 )}
             </div>
             <Footer />
