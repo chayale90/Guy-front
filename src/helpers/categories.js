@@ -5,31 +5,16 @@ import oilImage from '/images/oil.webp';
 import fruitsImage from '/images/fruits.webp';
 import meatImage from '/images/meat.webp';
 import milkImage from '/images/milk.webp';
-import logo from '/images/guy_levi_logo.webp';
 
 
-const categories = [
-    { category: 'חלב מוצריו ותחליפיו', id: 1 },
-    { category: 'דגנים וקטניות', id: 2 },
-    { category: 'עוף בשר דגים ותחליפי חלבון מן הצומח', id: 3 },
-    { category: 'שומנים', id: 4 },
-    { category: 'ירקות', id: 5 },
-    { category: 'פירות', id: 6 },
-    { category: 'נשנושים', id: 7 },
+
+export const categories = [
+    { category: 'חלב מוצריו ותחליפיו', id: 1, image: milkImage },
+    { category: 'דגנים וקטניות', id: 2, image: cerealsImage },
+    { category: 'עוף בשר דגים ותחליפי חלבון מן הצומח', id: 3, image: meatImage },
+    { category: 'שומנים', id: 4, image: oilImage },
+    { category: 'ירקות', id: 5, image: vegetablesImage },
+    { category: 'פירות', id: 6, image: fruitsImage },
+    { category: 'נשנושים', id: 7, image: snackingImage },
 ];
-
-const categoryImages = {
-    'ירקות': vegetablesImage,
-    'דגנים וקטניות': cerealsImage,
-    'חלב מוצריו ותחליפיו': milkImage,
-    'נשנושים': snackingImage,
-    'פירות': fruitsImage,
-    'עוף בשר דגים ותחליפי חלבון מן הצומח': meatImage,
-    'שומנים': oilImage,
-};
-
-export const mappedCategories = categories.map(category => ({
-    ...category,
-    image: categoryImages[category.category] || logo,
-}));
 
