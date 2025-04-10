@@ -10,8 +10,7 @@ const CategoryGrid = ({ categoriesList }) => {
                             <div className={`w-full min-h-full bg-white flex flex-col rounded-lg categoryCards ${index === 6 ? 'lg:mx-[22rem] md:mx-36 mx-20' : ''}`}>
                                 <img
                                     src={item.image}
-                                    className='w-full lg:max-h-48 object-cover bg-center rounded-[18.51px] break-words'
-                                    onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
+                                    className='w-full h-auto max-h-48 object-cover rounded-[18.51px]'
                                     loading="lazy"
                                     decoding="async"
                                     alt={item.category}
