@@ -1,23 +1,15 @@
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { checkCategory, preloadImages } from '../../utils/GetImageByCateogry';
-import Loader from '../Loader'
+import { Link } from "react-router-dom";
 
-const CategoryGrid = ({ categoriesList, isLoading }) => {
-    useEffect(() => {
-        preloadImages();
-    }, []);
+const CategoryGrid = ({ categoriesList }) => {
     return (
         <div className='lg:max-w-screen-lg lg:mx-auto md:max-w-screen-md md:mx-auto p-4 lg:p-4 bg-[#FFFFFF]' dir='rtl'>
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-8">
-                {isLoading ? (
-                    <Loader />
-                ) : (
-                    categoriesList.length > 0 && categoriesList.map((item, index) => (
+                {categoriesList.length > 0 &&
+                    categoriesList.map((item, index) => (
                         <Link to={`/home/category/${item.category}`} key={index}>
                             <div className={`w-full min-h-full bg-white flex flex-col rounded-lg categoryCards ${index === 6 ? 'lg:mx-[22rem] md:mx-36 mx-20' : ''}`}>
                                 <img
-                                    src={checkCategory(item.category)}
+                                    src={item.image}
                                     className='w-full lg:max-h-48 object-cover bg-center rounded-[18.51px] break-words'
                                     loading="lazy"
                                     alt={item.category}
@@ -29,10 +21,9 @@ const CategoryGrid = ({ categoriesList, isLoading }) => {
                                 </div>
                             </div>
                         </Link>
-                    ))
-                )}
+                    ))}
             </div>
         </div>
-    )
-}
+    );
+};
 export default CategoryGrid 

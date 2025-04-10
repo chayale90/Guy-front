@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -10,39 +11,28 @@ const axiosInstance = axios.create({
     },
 });
 
+
 export const sendDataToServer = async (endpoint, data) => {
     try {
         const response = await axiosInstance.post(endpoint, data);
-
-        if (response.status === 200) {
-            return response.data;
-        } else {
-            throw new Error('Unexpected server response');
-        }
+        return response.data;
     } catch (error) {
-        if (error.response && error.response.status === 401) {
-            throw new Error(error.response.data.message);
-        } else if (error.response && error.response.status === 403) {
-            throw new Error(error.response.data.message);
-        }
-        else {
-            throw new Error('שגיאה. נסה שוב מאוחר יותר');
-        }
+        throw new Error(error.response?.data?.message || 'Error occurred');
     }
 };
 
 export const sendDataToServerAdmin = async (endpoint, data) => {
-    const userJSON = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
     try {
-        const user = JSON.parse(userJSON);
-        if (!user.token) {
-            throw new Error('No token available');
+        const decodedToken = jwtDecode(token);
+        if (decodedToken.role !== 'admin') {
+            throw new Error('No Authorized');
         }
 
         const response = await axiosInstance.post(endpoint, data, {
 
             headers: {
-                Authorization: `Bearer ${user.token}`,
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -71,16 +61,16 @@ export const getDataFromServer = async (endpoint) => {
 };
 
 export const getDataFromServerAdmin = async (endpoint) => {
-    const userJSON = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
     try {
-        const user = JSON.parse(userJSON);
-        if (!user.token) {
-            throw new Error('No token available');
+        const decodedToken = jwtDecode(token);
+        if (decodedToken.role !== 'admin') {
+            throw new Error('No Authorized');
         }
 
         const response = await axiosInstance.get(endpoint, {
             headers: {
-                Authorization: `Bearer ${user.token}`,
+                Authorization: `Bearer ${token}`,
             },
         });
 
@@ -93,58 +83,63 @@ export const getDataFromServerAdmin = async (endpoint) => {
 
 
 export const updateDataToServer = async (endpoint, data) => {
-    const userJSON = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
     try {
-        const user = JSON.parse(userJSON);
-        if (!user.token) {
-            throw new Error('No token available');
+        const decodedToken = jwtDecode(token);
+        if (decodedToken.role !== 'admin') {
+            throw new Error('No Authorized');
         }
-
         const response = await axiosInstance.patch(endpoint, data, {
             headers: {
-                Authorization: `Bearer ${user.token}`,
+                Authorization: `Bearer ${token}`,
             },
         });
 
         return response.data;
+    } catch (error) {
+        throw new Error('שגיאה. נסה שוב מאוחר יותר');
+    }
+};
 
+export const updateData = async (endpoint, data) => {
+    try {
+        const response = await axiosInstance.put(endpoint, data);
+        return response.data;
     } catch (error) {
         throw new Error('שגיאה. נסה שוב מאוחר יותר');
     }
 };
 
 export const deleteData = async (endpoint, data) => {
-    const userJSON = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
     try {
-        const user = JSON.parse(userJSON);
-        if (!user.token) {
-            throw new Error('No token available');
+        const decodedToken = jwtDecode(token);
+        if (decodedToken.role !== 'admin') {
+            throw new Error('No Authorized');
         }
 
         const response = await axiosInstance.delete(endpoint, {
             headers: {
-                Authorization: `Bearer ${user.token}`,
+                Authorization: `Bearer ${token}`,
             },
         });
-
         return response;
-
     } catch (error) {
         throw new Error('שגיאה. נסה שוב מאוחר יותר');
     }
 };
 
 export const updateFoodToServer = async (endpoint, data) => {
-    const userJSON = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
     try {
-        const user = JSON.parse(userJSON);
-        if (!user.token) {
-            throw new Error('No token available');
+        const decodedToken = jwtDecode(token);
+        if (decodedToken.role !== 'admin') {
+            throw new Error('No Authorized');
         }
 
         const response = await axiosInstance.put(endpoint, data, {
             headers: {
-                Authorization: `Bearer ${user.token}`,
+                Authorization: `Bearer ${token}`,
             },
         });
 
