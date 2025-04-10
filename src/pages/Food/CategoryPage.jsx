@@ -5,14 +5,16 @@ import FormTitle from '../../components/Form/FormTitle';
 import TableProductsTable from '../../components/Food/TableProductsTable';
 import { calculateCalories, checkCategoryCalories } from '../../utils/CheckFoodCalories';
 import CategoryCards from '../../components/Food/CategoryCards';
-import vegetablesImage from '/images/ירקות.webp';
-import cerealsImage from '/images/דגנים.webp';
-import snackingImage from '/images/נשנושים.webp';
-import oilImage from '/images/שמנים.webp';
-import fruitsImage from '/images/פירות.webp';
-import meatImage from '/images/חלבון.webp';
-import milkImage from '/images/חלב.webp';
+
+import vegetablesImage from '/images/vegetables.webp';
+import cerealsImage from '/images/cereals.webp';
+import snackingImage from '/images/snacking.webp';
+import oilImage from '/images/oil.webp';
+import fruitsImage from '/images/fruits.webp';
+import meatImage from '/images/meat.webp';
+import milkImage from '/images/milk.webp';
 import logo from '/images/guy_levi_logo.webp';
+
 
 
 const checkCategory = (categoryName) => {
