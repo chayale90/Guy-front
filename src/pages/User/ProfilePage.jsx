@@ -75,7 +75,7 @@ const ProfilePage = () => {
             x: {
                 ticks: {
                     autoSkip: true,
-                    maxTicksLimit: 10, // כמה תוויות להציג בבת אחת
+                    maxTicksLimit: 10,
                 },
             },
             y: {
