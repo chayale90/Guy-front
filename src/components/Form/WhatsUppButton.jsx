@@ -1,11 +1,18 @@
-import React from 'react'
 import { FaWhatsapp } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
-const WhatsUppButton = () => {
+const WhatsUppButton = ({ variant }) => {
+    const positionStyles = variant === "login"
+        ? "top-[5%] right-[-0rem] " // Adjust these values for "login"
+        : "top-[-30%] right-[-1rem]";  // Default values
+
     return (
-        <div>
-            <Link to={'https://wa.me/972524555290'} target='_blank' className="fixed md:relative md:bottom-[-3rem] md:right-[-10rem] md:p-2 lg:relative sm:relative bottom-0 right-1 lg:bottom-[-7rem] lg:right-[-10rem] bg-[#5FD568] text-white p-1  rounded-full z-20 flex items-center">
+        <div className={`absolute ${positionStyles} bg-[#5FD568] text-white p-2 rounded-full z-20 flex items-center`}>
+            <Link
+                to="https://wa.me/972524555290"
+                target="_blank"
+                className="flex items-center"
+            >
                 <FaWhatsapp size={34} />
             </Link>
         </div>
