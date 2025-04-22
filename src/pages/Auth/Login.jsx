@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { sendDataToServer } from '../../helpers/Api';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -22,6 +22,14 @@ const Login = () => {
 
     const navigate = useNavigate();
 
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            navigate('/home');
+        }
+    }, [navigate]);
+
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData(prevState => ({
@@ -39,7 +47,6 @@ const Login = () => {
             const response = await sendDataToServer('/users/login', formData);
             toast.success('התחברת בהצלחה !');
 
-            console.log(response)
             localStorage.setItem('username', response.firstName);
             localStorage.setItem('token', response.token);
             localStorage.setItem('userId', response.userId);
