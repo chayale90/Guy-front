@@ -1,18 +1,20 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import Logo from './Logo';
 import { jwtDecode } from 'jwt-decode';
 import { FaUser } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
 
 const Nav = ({ showNav = true }) => {
     const [admin, setAdmin] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+
+    const navigate = useNavigate();
     const location = useLocation();
 
     useEffect(() => {
         const checkAdmin = () => {
             const token = localStorage.getItem('token');
-            console.log('Token:', token);
 
             if (token) {
                 try {
@@ -32,6 +34,13 @@ const Nav = ({ showNav = true }) => {
         setTimeout(checkAdmin, 100);
     }, [location.pathname]);
 
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        localStorage.removeItem('userId');
+        navigate('/');
+    };
+
     const redirectPath = useMemo(() => {
         if (admin === null) return null;
         return admin ? '/admin' : '/home';
@@ -50,10 +59,16 @@ const Nav = ({ showNav = true }) => {
 
             {/* Profile Icon on the right (only for users, not admins) */}
             {!isLoading && admin === false && (
-                <Link to={'/profile'} className='ml-auto p-2 flex flex-col items-center'>
-                    <FaUser size={28} color='#1e19de' />
-                    <span className='font-Assistant font-normal text-[#e30a0c]'>איזור אישי</span>
-                </Link>
+                <div className='ml-auto flex flex-row gap-2'>
+                    <Link to={'/profile'} className='p-2 flex flex-col items-center'>
+                        <FaUser size={23} color='#1e19de' />
+                        <span className='font-Assistant font-normal text-[#e30a0c]'>איזור אישי</span>
+                    </Link>
+                    <button onClick={handleLogout} className="p-2 flex flex-col items-center">
+                        <FiLogOut size={23} color="#433eea" />
+                        <span className="font-Assistant font-normal text-[#e30a0c]">יציאה</span>
+                    </button>
+                </div>
             )}
         </nav>
     );
