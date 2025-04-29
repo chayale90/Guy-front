@@ -9,11 +9,15 @@ import WelcomeUser from '../../components/Users/WelcomeUser';
 
 
 const HomePage = () => {
-    window.scrollTo(0, 0);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
+
     const [foodList, setFoodList] = useState([]);
     const [filteredFoodList, setFilteredFoodList] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
     const [clearSearch, setClearSearch] = useState(false);
+
 
     useEffect(() => {
         const fetchData = async () => {

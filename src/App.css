@@ -42,25 +42,22 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.293
-  ); /* Black background with 50% opacity */
+  background: rgba(240, 240, 240, 0.6); /* רקע עדין */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* Ensure it covers everything else */
+  z-index: 9999;
+  backdrop-filter: blur(2px); /* טשטוש אלגנטי */
 }
 
 .loader {
-  border: 8px solid #f3f3f3; /* Light grey */
-  border-top: 8px solid #000; /* Black */
+  width: 50px;
+  height: 50px;
+  border: 4px solid transparent;
+  border-top: 4px solid #433eea; /* סגול כהה */
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  animation: spin 1s linear infinite;
+  animation: spin 0.8s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(67, 62, 234, 0.3);
 }
 
 @keyframes spin {

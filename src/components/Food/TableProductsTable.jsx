@@ -1,15 +1,16 @@
-import React from 'react';
 import TableHeader from '../Users/TableHeader';
 import { Link } from 'react-router-dom';
 import { deleteData } from '../../helpers/Api';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
+
 const MySwal = withReactContent(Swal);
 
 const TableProductsTable = ({ foodList, setFoodList, filteredFoodList, searchInput, showButtons = false }) => {
 
     const headers = ['מזון', 'גרם למנה', 'יחידה למנה', ...(showButtons ? ['פעולות'] : [])];
+
 
     const deleteFood = async (foodId) => {
         try {
