@@ -1,13 +1,16 @@
-import React from 'react'
-import TableHeader from '../Users/TableHeader'
-import { Link } from 'react-router-dom'
+import TableHeader from '../Users/TableHeader';
+import { Link } from 'react-router-dom';
 import { deleteData } from '../../helpers/Api';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+
 
 const MySwal = withReactContent(Swal);
 
 const TableProductsTable = ({ foodList, setFoodList, filteredFoodList, searchInput, showButtons = false }) => {
+
+    const headers = ['מזון', 'גרם למנה', 'יחידה למנה', ...(showButtons ? ['פעולות'] : [])];
+
 
     const deleteFood = async (foodId) => {
         try {
@@ -49,10 +52,10 @@ const TableProductsTable = ({ foodList, setFoodList, filteredFoodList, searchInp
 
 
     return (
-        <div className="overflow-x-auto w-full mt-5 lg:px-32 lg:py-5 flex justify-center" dir='rtl'>
-            <table className="min-w-full border-collapse">
-                <TableHeader headers={['מזון', 'גרם למנה', 'יחידה למנה', showButtons ? 'פעולות' : null]} />
-                <tbody>
+        <div className="overflow-x-auto  max-h-[500px] overflow-y-auto min-w-full lg:px-32" dir='rtl'>
+            <table className="min-w-full border-collapse table-fixed">
+                <TableHeader headers={headers} />
+                <tbody className="overflow-y-auto max-h-[500px]">
                     {foodList?.length > 0 && foodList.map(food => {
                         const isHighlighted = filteredFoodList?.some(filteredFood => filteredFood._id === food._id);
 
@@ -69,13 +72,13 @@ const TableProductsTable = ({ foodList, setFoodList, filteredFoodList, searchInp
                                 </th>
                                 <th
                                     scope="row"
-                                    className="px-2 py-2 text-black font-Assistant font-normal text-[16px] break-words"
+                                    className="px-4 py-2 text-black font-Assistant font-normal text-[16px] break-words"
                                 >
                                     {food.calories ? `${food.calories}` : ""}
                                 </th>
                                 <th
                                     scope="row"
-                                    className="px-2 py-2 text-black font-Assistant font-normal text-[16px] break-words"
+                                    className="px-4 py-2 text-black font-Assistant font-normal text-[16px] break-words "
                                 >
                                     {food.unitsOfFood}
                                 </th>

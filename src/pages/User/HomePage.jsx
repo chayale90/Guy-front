@@ -1,91 +1,42 @@
 import React, { useEffect, useState } from 'react'
 import { getDataFromServer } from '../../helpers/Api';
-import UsersHeader from '../../components/UsersHeader';
 import CategoryCards from '../../components/Food/CategoryCards';
-import './HomePage.css'
 import TableProductsTable from '../../components/Food/TableProductsTable';
-import { preloadImages } from '../../utils/GetImageByCateogry';
-import { Link } from 'react-router-dom'
-import { RiGlobalLine } from "react-icons/ri";
+import UsersHeader from '../../components/Layout/UsersHeader';
+import { categories } from '../../helpers/categories';
+import Footer from '../../components/Layout/Footer';
+import WelcomeUser from '../../components/Users/WelcomeUser';
+
 
 const HomePage = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
+
     const [foodList, setFoodList] = useState([]);
-    const [foodCategory, setFoodCategory] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
     const [filteredFoodList, setFilteredFoodList] = useState([]);
-    const [userName, setUserName] = useState('');
     const [isSearching, setIsSearching] = useState(false);
     const [clearSearch, setClearSearch] = useState(false);
 
-    const customOrder = [
-        'חלב מוצריו ותחליפיו',
-        'דגנים וקטניות',
-        'עוף בשר דגים ותחליפי חלבון מן הצומח',
-        'שומנים',
-        'ירקות',
-        'פירות',
-        'נשנושים',
-    ];
-
-
-    useEffect(() => {
-        preloadImages();
-    }, []);
-    useEffect(() => {
-        const user = localStorage.getItem('user');
-        if (user) {
-            try {
-                const parsedUser = JSON.parse(user);
-                if (parsedUser && typeof parsedUser === 'object' && 'firstName' in parsedUser) {
-                    setUserName(parsedUser.firstName);
-                } else {
-                    console.log("Parsed User does not contain 'firstName' property");
-                }
-            } catch (error) {
-                console.error("Error parsing JSON:", error);
-            }
-        } else {
-            console.log("No user data found in localStorage");
-        }
-    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
-            setIsLoading(true);
             try {
-                let response = await getDataFromServer('/food/category');
+                let response = await getDataFromServer('/food/foodList');
                 response = response.sort((a, b) => {
-                    const indexA = customOrder.indexOf(a.category);
-                    const indexB = customOrder.indexOf(b.category);
-                    return (indexA === -1 ? customOrder.length : indexA) - (indexB === -1 ? customOrder.length : indexB);
+                    const nameA = a.name.replace(/[\s-]/g, '');
+                    const nameB = b.name.replace(/[\s-]/g, '');
+                    return nameA.localeCompare(nameB, 'he', { sensitivity: 'base', ignorePunctuation: true });
                 });
-                setFoodCategory(response);
-                setIsLoading(false);
+                setFoodList(response);
+                setFilteredFoodList(response);
             } catch (error) {
-                console.log(error);
-            } finally {
-                setIsLoading(false);
+                console.error("Error fetching food list:", error);
             }
         };
         fetchData();
     }, []);
 
-
-    useEffect(() => {
-        const fetchFoodList = async () => {
-            setIsLoading(true);
-            try {
-                const response = await getDataFromServer('/food/foodList');
-                setFoodList(response);
-                setFilteredFoodList(response);
-                setIsLoading(false);
-            } catch (error) {
-                console.error(error);
-                setIsLoading(false);
-            }
-        };
-        fetchFoodList();
-    }, []);
 
     const handleBackToHome = () => {
         setIsSearching(false);
@@ -97,14 +48,7 @@ const HomePage = () => {
     return (
         <>
             <div dir='rtl' className='max-w-full p-5 bg-custom-whitesmoke lg:bg-white md:bg-white font-Assistant'>
-                <div className='lg:flex lg:items-center lg:justify-center lg:text-center md:flex md:items-center md:justify-center md:text-center'>
-                    <h1 className='text-[22px] lg:text-[25px] md:text-[25px] text-custom-blue break-words font-bold lg:mr-2'>
-                        היי {userName && userName}
-                    </h1>
-                    <p className='text-black text-[22px] lg:text-[25px] md:text-[25px] break-words lg:mr-2 md:mr-2' style={{ fontWeight: 400 }}>
-                        מה ברצונך לאכול היום?
-                    </p>
-                </div>
+                <WelcomeUser />
                 <div className='mt-4 lg:mt-0 lg:w-auto lg:text-center lg:justify-center lg:flex md:mt-0 md:w-auto md:text-center md:flex md:justify-center'>
                     <UsersHeader
                         foodList={foodList}
@@ -133,25 +77,17 @@ const HomePage = () => {
                             <TableProductsTable
                                 setFoodList={setFilteredFoodList}
                                 foodList={filteredFoodList}
-                                isLoading={isLoading}
                                 showButtons={false}
                             />
                         )}
                     </>
                 )}
                 {!isSearching && (
-                    <CategoryCards categoriesList={foodCategory} isLoading={isLoading} />
+                    <CategoryCards categoriesList={categories} isCarousel={false} />
                 )}
             </div>
-            {/* Footer section */}
-            <footer className="w-full mt-10 bg-white p-4 text-center">
-                <Link to={'https://www.guyl.co.il'} target='_blank' className='flex justify-center items-center text-custom-blue text-[18.33px] font-Assistant font-bold'>
-                    <p className='underline decoration-[#443eeacc] decoration-1 underline-offset-[2px]'>לאתר הבית של גיא</p>
-                    {" "}  <RiGlobalLine />
-                </Link>
-            </footer>
+            <Footer />
         </>
-
     )
 }
 

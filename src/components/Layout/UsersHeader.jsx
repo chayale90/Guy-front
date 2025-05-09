@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Lottie from 'react-lottie';
-import animationData from '../lotties/animation-lottie.json';
+import animationData from '../../lotties/animation-lottie.json';
 import { CiSearch } from "react-icons/ci";
+import { Link, useNavigate } from 'react-router-dom';
+import { FaUser } from 'react-icons/fa';
+import { CgLogOut } from "react-icons/cg";
 
 const defaultOptions = {
     loop: true,
@@ -15,6 +18,7 @@ const defaultOptions = {
 const UsersHeader = ({ foodList, setFoodList, setIsSearching, clearSearch }) => {
     const [searchInput, setSearchInput] = useState('');
     const [noResults, setNoResults] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (clearSearch) {
@@ -42,8 +46,27 @@ const UsersHeader = ({ foodList, setFoodList, setIsSearching, clearSearch }) => 
             setNoResults(filteredList.length === 0);
         }
     };
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        localStorage.removeItem('userId');
+        navigate('/');
+    };
+
     return (
-        <section className="mt-5 ">
+        <section className="mt-5">
+            {/* Profile Icon (only on small screens) */}
+            <div className="absolute left-5 top-1 flex flex-row gap-2 md:hidden lg:hidden">
+                <Link to="/profile" className="p-2 flex flex-col items-center py-3">
+                    <FaUser size={22} color="#433eea" />
+                    <span className="font-Assistant font-normal text-[#e30a0c]">איזור אישי</span>
+                </Link>
+                <button onClick={handleLogout} className="p-2 flex flex-col items-center">
+                    <CgLogOut size={26} color="#433eea" />
+                    <span className="font-Assistant font-normal text-[#e30a0c]">יציאה</span>
+                </button>
+            </div>
             <div className="relative flex flex-col md:flex-row items-center" dir='rtl'>
                 <input
                     dir='rtl'

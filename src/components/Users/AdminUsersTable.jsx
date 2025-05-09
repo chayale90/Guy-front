@@ -3,7 +3,7 @@ import TableHeader from './TableHeader'
 import { updateDataToServer } from '../../helpers/Api';
 import { toast } from 'react-toastify';
 import { useCallback, useState } from 'react';
-import Loader from '../Loader';
+import Loader from '../ui/Loader';
 
 
 
@@ -18,7 +18,7 @@ const AdminUsersTable = ({ users, setUsers }) => {
             const updatedUser = response.user;
             if (updatedUser) {
                 setUsers(prevUsers =>
-                    prevUsers.map(u => 
+                    prevUsers.map(u =>
                         u._id === updatedUser._id ? { ...u, isActive: updatedUser.isActive } : u
                     )
                 );
@@ -30,17 +30,17 @@ const AdminUsersTable = ({ users, setUsers }) => {
             setLoadingUserIds(prev => prev.filter(id => id !== user._id));
         }
     }, [setUsers]);
-    
+
 
     return (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div className="overflow-x-auto max-h-[500px] overflow-y-auto">
             {loadingUserIds.length > 0 && <Loader />}
             <div className="py-4 text-2xl text-center">
                 <FormTitle text="משתמשים" />
             </div>
-            <div className="scroll">
+            <div className="">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500" dir='rtl'>
-                    <TableHeader headers={['#', 'שם מלא', 'שם משפחה', 'אימייל', 'סיסמא', 'חסימת משתמש',]} />
+                    <TableHeader headers={['#', 'שם מלא', 'אימייל', 'סיסמא', 'פלאפון', 'חסימת משתמש',]} />
                     <tbody>
                         {
                             users.length > 0 && users.map((user, index) => (
@@ -52,13 +52,13 @@ const AdminUsersTable = ({ users, setUsers }) => {
                                         {user.firstName}
                                     </td>
                                     <td className="px-6 py-4 text-black font-Assistant text-[18px]">
-                                        {user.lastName}
-                                    </td>
-                                    <td className="px-6 py-4 text-black font-Assistant text-[18px]">
                                         {user.email}
                                     </td>
                                     <td className="px-6 py-4 text-black font-Assistant text-[18px]">
                                         {user.password}
+                                    </td>
+                                    <td className="px-6 py-4 text-black font-Assistant text-[18px]">
+                                        {user.phoneNumber}
                                     </td>
                                     <td className="px-6 py-4 text-black font-Assistant text-[18px]">
                                         {loadingUserIds.includes(user._id) ? (
@@ -70,10 +70,10 @@ const AdminUsersTable = ({ users, setUsers }) => {
                                                 </button>
                                             ) : (
                                                 <button type='button' className="font-medium text-red-600" onClick={() => handleBlockToggle(user)}>
-                                                 משתמש חסום
-                                                <i className="fa-solid fa-ban m-1"></i>
-                                            </button>
-                                            
+                                                    משתמש חסום
+                                                    <i className="fa-solid fa-ban m-1"></i>
+                                                </button>
+
                                             )
                                         )}
                                     </td>
