@@ -26,13 +26,13 @@ const AdminHeader = () => {
                         type="button"
                         aria-controls="navbar-search"
                         aria-expanded={isCollapsed}
-                        className="md:hidden text-custom-blue rounded-lg text-sm p-2.5 me-1"
+                        className="md:hidden lg:hidden text-custom-blue rounded-lg text-sm p-2.5 me-1"
                         onClick={toggleCollapse}
                     >
 
                         <span className="sr-only">Search</span>
                     </button>
-                    <div className="relative hidden md:block">
+                    <div className="relative hidden md:block lg:block">
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                             <svg className="w-4 h-4 text-custom-blue" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                 <path strokeLinecap="round" strokeLinejoin="round" className="text-yellow-400" />
