@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
+import { logout } from '../../helpers/Api';
 
 const AdminHeader = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -10,13 +11,10 @@ const AdminHeader = () => {
         setIsCollapsed(!isCollapsed);
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        localStorage.removeItem('userId');
+    const handleLogout = async () => {
+        await logout();
         navigate('/');
     };
-
 
     return (
         <nav className="bg-custom-header-bg z-50">

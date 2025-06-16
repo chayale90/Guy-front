@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getDataFromServer, updateData } from "../../helpers/Api";
+import { getAuthenticatedUser, getDataFromServer, updateData } from "../../helpers/Api";
 import { formatDate } from "../../helpers/dateFormatter";
 import WeightStatistics from "../../components/chart/WeightStatistics";
 import WeightChart from "../../components/chart/WeightChart";
@@ -12,7 +12,19 @@ const ProfilePage = () => {
     const [showWeightModal, setShowWeightModal] = useState(false);
     const [newWeight, setNewWeight] = useState('');
 
-    const [userId, setUserId] = useState(() => localStorage.getItem('userId'));
+    const [userId, setUserId] = useState(null);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const user = await getAuthenticatedUser();
+
+            if (user && user.id) {
+                setUserId(user.id);
+            }
+        };
+
+        fetchUser();
+    }, []);
 
     useEffect(() => {
         const fetchData = async () => {

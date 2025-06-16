@@ -1,36 +1,42 @@
-import { jwtDecode } from 'jwt-decode';
+import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { getAuthenticatedUser } from './Api';
 
 
-const PrivateRoute = ({ element, adminOnly }) => {
-    const token = localStorage.getItem('token');
 
-    if (!token) {
-        return <Navigate to="/" replace />;
-    }
+const PrivateRoute = ({ element, adminOnly, clientOnly }) => {
+    const [loading, setLoading] = useState(true);
+    const [authorized, setAuthorized] = useState(false);
+    const [user, setUser] = useState(null);
 
-    try {
-        const decodedToken = jwtDecode(token);
-        const currentTime = Date.now() / 1000;
+    useEffect(() => {
+        const check = async () => {
+            const user = await getAuthenticatedUser();
+            if (!user) {
+                setAuthorized(false);
+                setLoading(false);
+                return;
+            }
 
-        if (decodedToken.exp < currentTime) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('username');
-            return <Navigate to="/" replace />;
-        }
+            if (adminOnly && user.role !== 'admin') {
+                setAuthorized(false);
+            } else if (clientOnly && user.role === 'admin') {
+                setAuthorized(false);
+            } else {
+                setAuthorized(true);
+                setUser(user);
+            }
 
-        if (adminOnly && decodedToken.role !== 'admin') {
-            return <Navigate to="/" replace />;
-        }
+            setLoading(false);
+        };
+        check();
+    }, [adminOnly, clientOnly]);
 
-        return element;
-    } catch (error) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        console.error('Invalid token:', error.message);
-        return <Navigate to="/" replace />;
-    }
+    if (loading) return <div>טוען...</div>;
+
+    return authorized ? element : <Navigate to="/" replace />;
 };
 
-
 export default PrivateRoute;
+
+

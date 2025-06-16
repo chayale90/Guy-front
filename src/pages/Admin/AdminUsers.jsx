@@ -46,4 +46,4 @@ const AdminUsers = () => {
     )
 }
 
-export default AdminUsers
+export default AdminUsers;

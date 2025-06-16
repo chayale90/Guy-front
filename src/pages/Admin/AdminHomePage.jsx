@@ -47,7 +47,6 @@ const AdminHomePage = () => {
         }
     };
 
-
     return (
         <>
             <div className='flex justify-between gap-1 items-center py-5 mx-auto max-w-full flex-wrap sticky top-0 bg-slate-100' dir='rtl'>

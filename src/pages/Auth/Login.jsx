@@ -1,14 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
-import { sendDataToServer } from '../../helpers/Api';
+import { getAuthenticatedUser, sendDataToServer } from '../../helpers/Api';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import FormInput from '../../components/Form/FormInput';
 import Loader from '../../components/ui/Loader';
 import WhatsUppButton from '../../components/Form/WhatsUppButton';
 import HeaderFormLogin from '../../components/Form/HeaderFormLogin';
-// import GoogleButton from '../../components/Form/GoogleButton';
 import { FaEyeSlash, FaEye } from "react-icons/fa";
-import { jwtDecode } from "jwt-decode";
+
 
 
 const Login = () => {
@@ -24,10 +23,22 @@ const Login = () => {
 
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            navigate('/home');
-        }
+        const checkAuth = async () => {
+            try {
+                const user = await getAuthenticatedUser();
+                if (user) {
+                    if (user.role === 'admin') {
+                        navigate('/admin');
+                    } else {
+                        navigate('/home');
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        checkAuth();
     }, [navigate]);
 
     const handleChange = (event) => {
@@ -44,21 +55,20 @@ const Login = () => {
         setIsLoading(true);
 
         try {
-            const response = await sendDataToServer('/users/login', formData);
-            toast.success('התחברת בהצלחה !');
+            await sendDataToServer('/users/login', formData);
 
-            localStorage.setItem('username', response.firstName);
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('userId', response.userId);
+            const user = await getAuthenticatedUser();
+            if (!user) throw new Error('אימות נכשל');
 
-            const decodedToken = jwtDecode(response.token);
-            if (decodedToken.role === 'admin') {
+            toast.success('התחברת בהצלחה!');
+
+            if (user.role === 'admin') {
                 navigate('/admin');
             } else {
                 navigate('/home');
             }
         } catch (error) {
-            toast.error(error.message);
+            toast.error(error.message || 'שגיאה בהתחברות');
         } finally {
             setIsLoading(false);
         }

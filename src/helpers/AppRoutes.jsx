@@ -29,15 +29,13 @@ const AppRoutes = () => {
                 {/* Auth Routes */}
                 <Route path="/" element={<Login />} />
                 <Route path="/signup" element={<Register />} />
-                {/* <Route path="/google-auth" element={<GoogleAuthHandler />} /> */}
 
-                {/* User Routes */}
-                <Route path="/home" element={<PrivateRoute element={<HomePage />} />} />
-                <Route path="/home/category/:categoryName" element={<PrivateRoute element={<CategoryPage />} />} />
-                <Route path="/profile" element={<PrivateRoute element={<ProfilePage />} />} />
+                {/* User Routes - הוספתי clientOnly */}
+                <Route path="/home" element={<PrivateRoute element={<HomePage />} clientOnly />} />
+                <Route path="/home/category/:categoryName" element={<PrivateRoute element={<CategoryPage />} clientOnly />} />
+                <Route path="/profile" element={<PrivateRoute element={<ProfilePage />} clientOnly />} />
 
                 {/* Protected Admin Route */}
-                {/* Admin Routes */}
                 <Route path="/admin" element={<AdminLayout />}>
                     <Route index element={<PrivateRoute element={<AdminHomePage />} adminOnly />} />
                     <Route path="users" element={<PrivateRoute element={<AdminUsers />} adminOnly />} />

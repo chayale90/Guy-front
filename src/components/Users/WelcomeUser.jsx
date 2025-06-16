@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify";
+import { getAuthenticatedUser } from "../../helpers/Api";
 
 
 const WelcomeUser = () => {
     const [userName, setUserName] = useState(() => localStorage.getItem('username') || '');
 
     useEffect(() => {
-        const user = localStorage.getItem('username');
-        if (user) {
+        const fetchUserName = async () => {
             try {
-                setUserName(user);
+                const user = await getAuthenticatedUser();
+                if (user && user.firstName) {
+                    setUserName(user.firstName);
+                }
             } catch (error) {
-                toast.error(error.message);
+                toast.error('שגיאה בטעינת המשתמש');
             }
-        }
-    }, [])
+        };
+
+        fetchUserName();
+    }, []);
+
+    if (!userName) return null;
 
 
     return (

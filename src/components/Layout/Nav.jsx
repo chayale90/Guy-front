@@ -4,6 +4,7 @@ import Logo from './Logo';
 import { jwtDecode } from 'jwt-decode';
 import { FaUser } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
+import { getAuthenticatedUser, logout } from '../../helpers/Api';
 
 const Nav = ({ showNav = true }) => {
     const [admin, setAdmin] = useState(null);
@@ -13,31 +14,59 @@ const Nav = ({ showNav = true }) => {
     const location = useLocation();
 
     useEffect(() => {
-        const checkAdmin = () => {
-            const token = localStorage.getItem('token');
-
-            if (token) {
-                try {
-                    const decodedToken = jwtDecode(token);
-                    setAdmin(decodedToken.role === 'admin');
-                } catch (error) {
-                    console.error('Invalid token:', error);
-                    localStorage.removeItem('token');
-                    setAdmin(false);
-                }
-            } else {
+        const checkAdmin = async () => {
+            try {
+                const user = await getAuthenticatedUser();
+                setAdmin(user?.role === 'admin');
+            } catch (error) {
                 setAdmin(false);
+            } finally {
+                setIsLoading(false);
             }
-            setIsLoading(false);
         };
 
-        setTimeout(checkAdmin, 100);
+        checkAdmin();
     }, [location.pathname]);
+    // useEffect(() => {
+    //     const checkAdmin = () => {
+    //         const token = localStorage.getItem('token');
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        localStorage.removeItem('userId');
+    //         if (token) {
+    //             try {
+    //                 const decodedToken = jwtDecode(token);
+    //                 setAdmin(decodedToken.role === 'admin');
+    //             } catch (error) {
+    //                 console.error('Invalid token:', error);
+    //                 localStorage.removeItem('token');
+    //                 setAdmin(false);
+    //             }
+    //         } else {
+    //             setAdmin(false);
+    //         }
+    //         setIsLoading(false);
+    //     };
+
+    //     setTimeout(checkAdmin, 100);
+    // }, [location.pathname]);
+
+    // const handleLogout = () => {
+    //     localStorage.removeItem('token');
+    //     localStorage.removeItem('username');
+    //     localStorage.removeItem('userId');
+    //     navigate('/');
+    // };
+
+    // const redirectPath = useMemo(() => {
+    //     if (admin === null) return null;
+    //     return admin ? '/admin' : '/home';
+    // }, [admin]);
+
+    // if (!showNav || redirectPath === null) {
+    //     return null;
+    // }
+
+    const handleLogout = async () => {
+        await logout();
         navigate('/');
     };
 
@@ -46,9 +75,7 @@ const Nav = ({ showNav = true }) => {
         return admin ? '/admin' : '/home';
     }, [admin]);
 
-    if (!showNav || redirectPath === null) {
-        return null;
-    }
+    if (!showNav || redirectPath === null) return null;
 
     return (
         <nav className='bg-custom-header-bg w-full p-14 mx-auto flex justify-between items-center relative'>
