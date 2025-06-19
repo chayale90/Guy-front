@@ -91,8 +91,11 @@ const ProfilePage = () => {
                 },
             },
             y: {
-                min: 30,
+                min: 40,
                 max: 200,
+                ticks: {
+                    stepSize: 10,
+                },
                 title: {
                     display: true,
                     text: "משקל (kg)",
@@ -104,7 +107,7 @@ const ProfilePage = () => {
     const handleAddWeight = async () => {
         if (!userId || !newWeight) return;
 
-        if (isNaN(newWeight) || newWeight < 30 || newWeight > 200) {
+        if (isNaN(newWeight) || newWeight < 40 || newWeight > 200) {
             toast.error('משקל אינו תקין');
             return;
         }

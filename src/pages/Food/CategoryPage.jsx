@@ -111,7 +111,7 @@ const CategoryPage = () => {
                                     <span className='rounded-lg border py-1.5 px-3 font-Assistant text-sm text-black border-[#D9D9D9] bg-transparent h-8 w-16 text-center'>
                                         {calories ? calculateCalories(categoryName, calories) : ''}
                                     </span>
-                                    <span className='ml-2 lg:text-[20px] md:text-[20px]'>גרם למנה</span>
+                                    <span className='ml-2 lg:text-[20px] md:text-[20px] text-[#e30a0c]'>גרם למנה</span>
                                 </div>
 
                                 <div className='font-normal font-Assistant flex items-center'>
@@ -121,7 +121,7 @@ const CategoryPage = () => {
                                         className='rounded-lg border py-1 px-3 text-sm border-[#D9D9D9] bg-white w-20 h-8 font-Assistant'
                                         onChange={(e) => setCalories(e.target.value)}
                                     />
-                                    <span className='ml-2 text-[16px] lg:text-[20px] md:text-[20px]'>אנרגיה (קלוריות) ל100 גרם</span>
+                                    <div className='ml-2 text-[16px] lg:text-[20px] md:text-[20px] text-custom-blue'>אנרגיה (קלוריות) ל100 גרם</div>
                                 </div>
                             </div>
                         </div>

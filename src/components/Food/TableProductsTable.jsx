@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { deleteData } from '../../helpers/Api';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import Loader from '../ui/Loader';
 
 
 const MySwal = withReactContent(Swal);
@@ -49,6 +50,8 @@ const TableProductsTable = ({ foodList, setFoodList, filteredFoodList, searchInp
             });
         }
     };
+
+    if (!foodList) return <Loader />
 
 
     return (
