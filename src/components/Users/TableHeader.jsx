@@ -2,7 +2,7 @@ import React from 'react'
 
 const TableHeader = ({ headers, showButtons }) => {
     return (
-        <thead className="sticky top-0 bg-white z-10 shadow-sm">
+        <thead className="sticky top-[-1px] bg-white z-10 shadow-sm ">
             <tr>
                 {headers.filter(Boolean).map((header, index) => (
                     <th key={index} scope="col"

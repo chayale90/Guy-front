@@ -33,7 +33,7 @@ const AdminUsersTable = ({ users, setUsers }) => {
 
 
     return (
-        <div className="overflow-x-auto max-h-[500px] overflow-y-auto">
+        <div className="overflow-x-auto max-h-[650px] overflow-y-auto">
             {loadingUserIds.length > 0 && <Loader />}
             <div className="py-4 text-2xl text-center">
                 <FormTitle text="משתמשים" />
