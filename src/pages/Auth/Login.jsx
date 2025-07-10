@@ -41,14 +41,11 @@ const Login = () => {
         try {
             const response = await sendDataToServer('/users/login', formData);
             toast.success('התחברת בהצלחה !');
-            console.log(response)
 
-            localStorage.setItem('username', response.user.firstName);
             localStorage.setItem('token', response.token);
 
-
             const decodedToken = jwtDecode(response.token);
-            console.log(decodedToken)
+
             if (decodedToken.role === 'admin') {
                 navigate('/admin');
             } else {

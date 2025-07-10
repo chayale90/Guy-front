@@ -7,13 +7,18 @@ export const getAuthenticatedUser = () => {
 
         const decoded = jwtDecode(token);
 
+        const now = Date.now() / 1000;
+        if (decoded.exp && decoded.exp < now) {
+            localStorage.removeItem('token');
+            return null;
+        }
+
         return {
             id: decoded.id || decoded._id,
             firstName: decoded.firstName,
             role: decoded.role,
-            // ... כל שדה נוסף בטוקן
         };
-    } catch (error) {
+    } catch {
         return null;
     }
 };

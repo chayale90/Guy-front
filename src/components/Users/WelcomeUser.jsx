@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { getAuthenticatedUser } from "../../utils/getAuthenticatedUser";
 
 
 
@@ -6,10 +7,8 @@ const WelcomeUser = () => {
     const [userName, setUserName] = useState('');
 
     useEffect(() => {
-        const storedName = localStorage.getItem('username');
-        if (storedName) {
-            setUserName(storedName);
-        }
+        const user = getAuthenticatedUser();
+        if (user) setUserName(user.firstName);
     }, []);
 
     if (!userName) return null;
