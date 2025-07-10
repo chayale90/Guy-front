@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getAuthenticatedUser, getDataFromServer, updateData } from "../../helpers/Api";
+import { getDataFromServer, updateData } from "../../api/Api";
 import { formatDate } from "../../helpers/dateFormatter";
 import WeightStatistics from "../../components/chart/WeightStatistics";
 import WeightChart from "../../components/chart/WeightChart";
@@ -16,6 +16,7 @@ import {
     Tooltip,
     Legend
 } from 'chart.js';
+import { getAuthenticatedUser } from "../../utils/getAuthenticatedUser";
 
 ChartJS.register(
     LineElement,

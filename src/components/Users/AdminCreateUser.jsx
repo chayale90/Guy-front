@@ -3,7 +3,7 @@ import FormInput from '../../components/Form/FormInput';
 import FormTitle from '../../components/Form/FormTitle';
 import Loader from '../ui/Loader';
 import { toast } from 'react-toastify';
-import { sendDataToServerAdmin } from '../../helpers/Api';
+import { sendDataToServerAdmin } from '../../api/Api';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 

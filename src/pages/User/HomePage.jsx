@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getDataFromServer } from '../../helpers/Api';
+import { getDataFromServer } from '../../api/Api';
 import CategoryCards from '../../components/Food/CategoryCards';
 import TableProductsTable from '../../components/Food/TableProductsTable';
 import UsersHeader from '../../components/Layout/UsersHeader';

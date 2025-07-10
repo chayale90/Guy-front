@@ -1,35 +1,34 @@
-import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { getAuthenticatedUser } from './Api';
 
-
+import { useEffect, useState } from 'react';
+import { getAuthenticatedUser } from '../utils/getAuthenticatedUser';
 
 const PrivateRoute = ({ element, adminOnly, clientOnly }) => {
-    const [loading, setLoading] = useState(true);
     const [authorized, setAuthorized] = useState(false);
-    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const check = async () => {
-            const user = await getAuthenticatedUser();
-            if (!user) {
+        const checkAccess = () => {
+            setAuthorized(false);
+            try {
+                const user = getAuthenticatedUser();
+                if (!user) throw new Error('No user');
+
+                if (adminOnly && user.role !== 'admin') {
+                    setAuthorized(false);
+                } else if (clientOnly && user.role === 'admin') {
+                    setAuthorized(false);
+                } else {
+                    setAuthorized(true);
+                }
+            } catch {
                 setAuthorized(false);
+            } finally {
                 setLoading(false);
-                return;
             }
-
-            if (adminOnly && user.role !== 'admin') {
-                setAuthorized(false);
-            } else if (clientOnly && user.role === 'admin') {
-                setAuthorized(false);
-            } else {
-                setAuthorized(true);
-                setUser(user);
-            }
-
-            setLoading(false);
         };
-        check();
+
+        checkAccess();
     }, [adminOnly, clientOnly]);
 
     if (loading) return <div>טוען...</div>;
@@ -38,5 +37,3 @@ const PrivateRoute = ({ element, adminOnly, clientOnly }) => {
 };
 
 export default PrivateRoute;
-
-

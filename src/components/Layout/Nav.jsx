@@ -1,10 +1,11 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import Logo from './Logo';
-import { jwtDecode } from 'jwt-decode';
+
 import { FaUser } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-import { getAuthenticatedUser, logout } from '../../helpers/Api';
+import { logout } from '../../api/Api';
+import { getAuthenticatedUser } from '../../utils/getAuthenticatedUser';
 const Nav = ({ showNav = true }) => {
     const [admin, setAdmin] = useState(null);
     const [isLoading, setIsLoading] = useState(true);

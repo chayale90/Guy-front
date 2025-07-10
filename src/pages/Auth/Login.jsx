@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-// import { getAuthenticatedUser, sendDataToServer } from '../../helpers/Api';
+import { sendDataToServer } from '../../api/Api';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import FormInput from '../../components/Form/FormInput';
@@ -7,25 +7,23 @@ import Loader from '../../components/ui/Loader';
 import WhatsUppButton from '../../components/Form/WhatsUppButton';
 import HeaderFormLogin from '../../components/Form/HeaderFormLogin';
 import { FaEyeSlash, FaEye } from "react-icons/fa";
-import { useAuth } from '../../hooks/useAuth';
+import { jwtDecode } from "jwt-decode";
+import { getAuthenticatedUser } from '../../utils/getAuthenticatedUser';
+
 
 
 
 const Login = () => {
-
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-    });
+    const [formData, setFormData] = useState({ email: '', password: '' });
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const { login, checkAuth } = useAuth();
-
     const navigate = useNavigate();
 
-
     useEffect(() => {
-        checkAuth();
+        const user = getAuthenticatedUser();
+        if (user) {
+            navigate(user.role === 'admin' ? '/admin' : '/home');
+        }
     }, []);
 
     const handleChange = (event) => {
@@ -39,65 +37,30 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         setIsLoading(true);
+
         try {
-            await login(formData);
+            const response = await sendDataToServer('/users/login', formData);
+            toast.success('התחברת בהצלחה !');
+            console.log(response)
+
+            localStorage.setItem('username', response.user.firstName);
+            localStorage.setItem('token', response.token);
+
+
+            const decodedToken = jwtDecode(response.token);
+            console.log(decodedToken)
+            if (decodedToken.role === 'admin') {
+                navigate('/admin');
+            } else {
+                navigate('/home');
+            }
         } catch (error) {
-            console.log(error);
+            toast.error(error.message);
         } finally {
             setIsLoading(false);
         }
     };
-    // useEffect(() => {
-    //     const checkAuth = async () => {
-    //         try {
-    //             const user = await getAuthenticatedUser();
-    //             if (user) {
-    //                 if (user.role === 'admin') {
-    //                     navigate('/admin');
-    //                 } else {
-    //                     navigate('/home');
-    //                 }
-    //             }
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     };
 
-    //     checkAuth();
-    // }, [navigate]);
-
-    // const handleChange = (event) => {
-    //     const { name, value } = event.target;
-    //     setFormData(prevState => ({
-    //         ...prevState,
-    //         [name]: name === "email" ? value.toLowerCase() : value,
-    //     }));
-    // };
-
-
-    // const handleLogin = async (e) => {
-    //     e.preventDefault();
-    //     setIsLoading(true);
-
-    //     try {
-    //         await sendDataToServer('/users/login', formData);
-
-    //         const user = await getAuthenticatedUser();
-    //         if (!user) throw new Error('אימות נכשל');
-
-    //         toast.success('התחברת בהצלחה!');
-
-    //         if (user.role === 'admin') {
-    //             navigate('/admin');
-    //         } else {
-    //             navigate('/home');
-    //         }
-    //     } catch (error) {
-    //         toast.error(error.message || 'שגיאה בהתחברות');
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // };
 
     const togglePasswordVisibility = useCallback((e) => {
         e.preventDefault();

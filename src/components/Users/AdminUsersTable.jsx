@@ -1,6 +1,6 @@
 import FormTitle from '../Form/FormTitle'
 import TableHeader from './TableHeader'
-import { updateDataToServer } from '../../helpers/Api';
+import { updateDataToServer } from '../../api/Api';
 import { toast } from 'react-toastify';
 import { useCallback, useState } from 'react';
 import Loader from '../ui/Loader';

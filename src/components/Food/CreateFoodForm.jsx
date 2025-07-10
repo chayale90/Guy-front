@@ -4,7 +4,7 @@ import Loader from '../ui/Loader';
 import FormInput from '../Form/FormInput';
 import FormSelectInput from '../Form/FormSelectInput';
 import FormTitle from '../Form/FormTitle';
-import { sendDataToServerAdmin } from '../../helpers/Api';
+import { sendDataToServerAdmin } from '../../api/Api';
 import { toast } from 'react-toastify';
 
 const CreateFoodForm = () => {

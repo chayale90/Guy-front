@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import { getDataFromServer } from '../../helpers/Api';
+import { getDataFromServer } from '../../api/Api';
 import FormTitle from '../../components/Form/FormTitle';
 import TableProductsTable from '../../components/Food/TableProductsTable';
 import { calculateCalories, checkCategoryCalories } from '../../utils/CheckFoodCalories';

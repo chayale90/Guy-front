@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
-import { logout } from '../../helpers/Api';
+import { logout } from '../../api/Api';
 
 const AdminHeader = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);

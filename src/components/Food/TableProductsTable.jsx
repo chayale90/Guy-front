@@ -1,6 +1,6 @@
 import TableHeader from '../Users/TableHeader';
 import { Link } from 'react-router-dom';
-import { deleteData } from '../../helpers/Api';
+import { deleteData } from '../../api/Api';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import Loader from '../ui/Loader';

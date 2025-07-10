@@ -5,7 +5,7 @@ import { CiSearch } from "react-icons/ci";
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
 import { CgLogOut } from "react-icons/cg";
-import { logout } from '../../helpers/Api';
+import { logout } from '../../api/Api';
 
 const defaultOptions = {
     loop: true,
