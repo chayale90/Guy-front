@@ -1,10 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getDataFromServer, updateData } from "../../helpers/Api";
+import { getDataFromServer, updateData } from "../../api/Api";
 import { formatDate } from "../../helpers/dateFormatter";
 import WeightStatistics from "../../components/chart/WeightStatistics";
 import WeightChart from "../../components/chart/WeightChart";
 import { toast } from "react-toastify";
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import {
+    Chart as ChartJS,
+    LineElement,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    Title,
+    Tooltip,
+    Legend
+} from 'chart.js';
+import { getAuthenticatedUser } from "../../utils/getAuthenticatedUser";
+
+ChartJS.register(
+    LineElement,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    Title,
+    Tooltip,
+    Legend,
+    ChartDataLabels
+);
 
 
 const ProfilePage = () => {
@@ -12,7 +35,19 @@ const ProfilePage = () => {
     const [showWeightModal, setShowWeightModal] = useState(false);
     const [newWeight, setNewWeight] = useState('');
 
-    const [userId, setUserId] = useState(() => localStorage.getItem('userId'));
+    const [userId, setUserId] = useState(null);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const user = await getAuthenticatedUser();
+
+            if (user && user.id) {
+                setUserId(user.id);
+            }
+        };
+
+        fetchUser();
+    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -46,7 +81,6 @@ const ProfilePage = () => {
             },
         ],
     };
-
     const options = {
         responsive: true,
         maintainAspectRatio: false,
@@ -54,6 +88,17 @@ const ProfilePage = () => {
             legend: {
                 position: "bottom",
                 display: false,
+            },
+            datalabels: {
+                display: true,
+                align: 'top',
+                anchor: 'end',
+                color: '#000',
+                font: {
+                    weight: 'bold',
+                    size: 12,
+                },
+                formatter: (value) => value + " ק״ג"
             },
             zoom: {
                 pan: {
@@ -79,8 +124,11 @@ const ProfilePage = () => {
                 },
             },
             y: {
-                min: 30,
+                min: 40,
                 max: 200,
+                ticks: {
+                    stepSize: 10,
+                },
                 title: {
                     display: true,
                     text: "משקל (kg)",
@@ -89,10 +137,55 @@ const ProfilePage = () => {
         },
     };
 
+    // const options = {
+    //     responsive: true,
+    //     maintainAspectRatio: false,
+    //     plugins: {
+    //         legend: {
+    //             position: "bottom",
+    //             display: false,
+    //         },
+    //         zoom: {
+    //             pan: {
+    //                 enabled: true,
+    //                 mode: "x",
+    //             },
+    //             zoom: {
+    //                 wheel: {
+    //                     enabled: true,
+    //                 },
+    //                 pinch: {
+    //                     enabled: true,
+    //                 },
+    //                 mode: "x",
+    //             },
+    //         },
+    //     },
+    //     scales: {
+    //         x: {
+    //             ticks: {
+    //                 autoSkip: true,
+    //                 maxTicksLimit: 10,
+    //             },
+    //         },
+    //         y: {
+    //             min: 40,
+    //             max: 200,
+    //             ticks: {
+    //                 stepSize: 10,
+    //             },
+    //             title: {
+    //                 display: true,
+    //                 text: "משקל (kg)",
+    //             },
+    //         },
+    //     },
+    // };
+
     const handleAddWeight = async () => {
         if (!userId || !newWeight) return;
 
-        if (isNaN(newWeight) || newWeight < 30 || newWeight > 200) {
+        if (isNaN(newWeight) || newWeight < 40 || newWeight > 200) {
             toast.error('משקל אינו תקין');
             return;
         }

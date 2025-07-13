@@ -11,7 +11,6 @@ const axiosInstance = axios.create({
     },
 });
 
-
 export const sendDataToServer = async (endpoint, data) => {
     try {
         const response = await axiosInstance.post(endpoint, data);
@@ -52,7 +51,12 @@ export const sendDataToServerAdmin = async (endpoint, data) => {
 
 export const getDataFromServer = async (endpoint) => {
     try {
-        const response = await axiosInstance.get(endpoint);
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(endpoint, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
         return response.data;
 
     } catch (error) {
@@ -103,7 +107,13 @@ export const updateDataToServer = async (endpoint, data) => {
 
 export const updateData = async (endpoint, data) => {
     try {
-        const response = await axiosInstance.put(endpoint, data);
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.put(endpoint, data, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
         return response.data;
     } catch (error) {
         throw new Error('שגיאה. נסה שוב מאוחר יותר');
@@ -147,5 +157,16 @@ export const updateFoodToServer = async (endpoint, data) => {
 
     } catch (error) {
         throw new Error('שגיאה. נסה שוב מאוחר יותר');
+    }
+};
+
+export const logout = async () => {
+    try {
+        await axiosInstance.post('/users/logout');
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("username");
+    } catch (error) {
+        console.error('שגיאה ביציאה:', error);
     }
 };

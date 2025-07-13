@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import TableProductsTable from '../../components/Food/TableProductsTable'
-import { getDataFromServer } from '../../helpers/Api'
+import { getDataFromServer } from '../../api/Api'
 import { Link } from 'react-router-dom'
 import Loader from '../../components/ui/Loader'
 
@@ -46,7 +46,6 @@ const AdminHomePage = () => {
             setFilteredFoodList(filteredList);
         }
     };
-
 
     return (
         <>

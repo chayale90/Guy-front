@@ -5,7 +5,7 @@ import FormTitle from '../../components/Form/FormTitle';
 import FormInput from '../../components/Form/FormInput';
 import FormSelectInput from '../../components/Form/FormSelectInput';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getDataFromServerAdmin, updateFoodToServer } from '../../helpers/Api';
+import { getDataFromServerAdmin, updateFoodToServer } from '../../api/Api';
 
 
 const EditFoodPage = () => {

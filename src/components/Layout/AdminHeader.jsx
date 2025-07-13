@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
+import { logout } from '../../api/Api';
 
 const AdminHeader = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -10,69 +11,61 @@ const AdminHeader = () => {
         setIsCollapsed(!isCollapsed);
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        localStorage.removeItem('userId');
+    const handleLogout = async () => {
+        await logout();
         navigate('/');
     };
 
-
     return (
-        <nav className="bg-custom-header-bg z-50">
-            <div className="flex flex-wrap items-center justify-between mx-auto" dir='rtl'>
-                <div className="flex">
+        <nav className="bg-custom-header-bg shadow-md sticky top-0 z-50">
+            <div className="max-w-screen-xl relative mx-auto px-4 py-3 flex items-center" dir="rtl">
+
+                {/* צד ימין: תפריט בדסקטופ */}
+                <div className="hidden md:flex items-center gap-6 font-Assistant">
                     <button
-                        type="button"
-                        aria-controls="navbar-search"
-                        aria-expanded={isCollapsed}
-                        className="md:hidden text-custom-blue rounded-lg text-sm p-2.5 me-1"
-                        onClick={toggleCollapse}
+                        onClick={handleLogout}
+                        className="flex items-center gap-2 text-[#e30a0c] font-bold hover:text-red-600 transition"
                     >
-
-                        <span className="sr-only">Search</span>
+                        <FiLogOut size={20} color="blue" />
+                        התנתקות
                     </button>
-                    <div className="relative hidden md:block">
-                        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg className="w-4 h-4 text-custom-blue" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path strokeLinecap="round" strokeLinejoin="round" className="text-yellow-400" />
-                            </svg>
-                        </div>
-                    </div>
-
-                    {isCollapsed ? (
-                        <button
-                            type="button"
-                            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm md:hidden text-custom-blue"
-                            onClick={toggleCollapse}
-                            aria-controls="navbar-search"
-                            aria-expanded={!isCollapsed}
-                        >
-                            <i className="fa-solid fa-x fa-lg"></i>
-                        </button>
-
-                    ) : (
-                        <button
-                            type="button"
-                            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm md:hidden text-custom-blue"
-                            onClick={toggleCollapse}
-                            aria-controls="navbar-search"
-                            aria-expanded={!isCollapsed}
-                        >
-                            <i className="fa-solid fa-bars fa-xl"></i>
-                        </button>
-                    )}
+                    <Link to="/admin/users" className="text-black text-lg hover:text-custom-blue transition">משתמשים</Link>
+                    <Link to="/admin" className="text-black text-lg hover:text-custom-blue transition">מאכלים</Link>
                 </div>
 
-            </div>
-            <div className={`items-center justify-between ${isCollapsed ? 'block' : 'hidden'} w-full md:flex md:w-auto md:order-1 mx-3`} id="navbar-search" dir='rtl'>
-                <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0">
-                    <button onClick={handleLogout} className="p-2 flex gap-1 items-center">
-                        <FiLogOut size={20} color="#433eea" />
-                        <span className="font-Assistant font-bold text-[#e30a0c]">התנתקות</span>
+                {/* כותרת במרכז במסכים גדולים */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 text-xl font-bold text-custom-blue font-Assistant">
+                    לוח ניהול
+                </div>
+
+                {/* כפתור תפריט נפתח למובייל - בצד ימין במובייל */}
+                <div className="md:hidden ml-auto">
+                    <button
+                        onClick={toggleCollapse}
+                        className="text-custom-blue p-2 rounded-lg transition hover:bg-blue-100"
+                        aria-label="פתח תפריט"
+                    >
+                        {isCollapsed ? (
+                            <i className="fa-solid fa-x fa-lg"></i>
+                        ) : (
+                            <i className="fa-solid fa-bars fa-xl"></i>
+                        )}
                     </button>
-                    <Link to={'/admin'} className='block py-2 px-3 text-black font-Assistant font-bold text-[20px]'>מאכלים</Link>
-                    <Link to={'/admin/users'} className='block py-2 px-3 text-black font-Assistant font-bold text-[20px]'>משתמשים</Link>
+                </div>
+            </div>
+
+            {/* תפריט במובייל */}
+            <div className={`md:hidden px-4 ${isCollapsed ? 'block' : 'hidden'}`} dir="rtl">
+                <ul className="flex flex-col gap-4 py-4 font-Assistant text-right">
+                    <Link to="/admin/users" className="text-black text-lg hover:text-custom-blue transition">משתמשים</Link>
+                    <Link to="/admin" className="text-black text-lg hover:text-custom-blue transition">מאכלים</Link>
+                    <button
+                        onClick={handleLogout}
+                        className="flex items-center gap-2 text-[#e30a0c] font-bold hover:text-red-600 transition"
+                    >
+                        <FiLogOut size={20} />
+                        התנתקות
+                    </button>
                 </ul>
             </div>
         </nav>

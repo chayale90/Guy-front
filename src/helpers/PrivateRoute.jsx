@@ -1,36 +1,39 @@
-import { jwtDecode } from 'jwt-decode';
 import { Navigate } from 'react-router-dom';
 
+import { useEffect, useState } from 'react';
+import { getAuthenticatedUser } from '../utils/getAuthenticatedUser';
 
-const PrivateRoute = ({ element, adminOnly }) => {
-    const token = localStorage.getItem('token');
+const PrivateRoute = ({ element, adminOnly, clientOnly }) => {
+    const [authorized, setAuthorized] = useState(false);
+    const [loading, setLoading] = useState(true);
 
-    if (!token) {
-        return <Navigate to="/" replace />;
-    }
+    useEffect(() => {
+        const checkAccess = () => {
+            setAuthorized(false);
+            try {
+                const user = getAuthenticatedUser();
+                if (!user) throw new Error('No user');
 
-    try {
-        const decodedToken = jwtDecode(token);
-        const currentTime = Date.now() / 1000;
+                if (adminOnly && user.role !== 'admin') {
+                    setAuthorized(false);
+                } else if (clientOnly && user.role === 'admin') {
+                    setAuthorized(false);
+                } else {
+                    setAuthorized(true);
+                }
+            } catch {
+                setAuthorized(false);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-        if (decodedToken.exp < currentTime) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('username');
-            return <Navigate to="/" replace />;
-        }
+        checkAccess();
+    }, [adminOnly, clientOnly]);
 
-        if (adminOnly && decodedToken.role !== 'admin') {
-            return <Navigate to="/" replace />;
-        }
+    if (loading) return <div>טוען...</div>;
 
-        return element;
-    } catch (error) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        console.error('Invalid token:', error.message);
-        return <Navigate to="/" replace />;
-    }
+    return authorized ? element : <Navigate to="/" replace />;
 };
-
 
 export default PrivateRoute;

@@ -1,8 +1,9 @@
 import TableHeader from '../Users/TableHeader';
 import { Link } from 'react-router-dom';
-import { deleteData } from '../../helpers/Api';
+import { deleteData } from '../../api/Api';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import Loader from '../ui/Loader';
 
 
 const MySwal = withReactContent(Swal);
@@ -50,12 +51,14 @@ const TableProductsTable = ({ foodList, setFoodList, filteredFoodList, searchInp
         }
     };
 
+    if (!foodList) return <Loader />
+
 
     return (
-        <div className="overflow-x-auto  max-h-[500px] overflow-y-auto min-w-full lg:px-32" dir='rtl'>
+        <div className="overflow-x-auto max-h-[650px] md:min-h-screen overflow-y-auto min-w-full lg:px-32" dir='rtl'>
             <table className="min-w-full border-collapse table-fixed">
                 <TableHeader headers={headers} />
-                <tbody className="overflow-y-auto max-h-[500px]">
+                <tbody className="overflow-y-auto">
                     {foodList?.length > 0 && foodList.map(food => {
                         const isHighlighted = filteredFoodList?.some(filteredFood => filteredFood._id === food._id);
 
