@@ -46,6 +46,10 @@ const Login = () => {
 
             const decodedToken = jwtDecode(response.token);
 
+            if (decodedToken.firstName) {
+                localStorage.setItem('username', decodedToken.firstName);
+            }
+
             if (decodedToken.role === 'admin') {
                 navigate('/admin');
             } else {
