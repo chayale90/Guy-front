@@ -33,12 +33,12 @@ const AdminUsersTable = ({ users, setUsers }) => {
 
 
     return (
-        <div className="overflow-x-auto max-h-[650px] overflow-y-auto">
+        <div className="overflow-x-auto max-h-[650px] md:min-h-screen overflow-y-auto">
             {loadingUserIds.length > 0 && <Loader />}
-            <div className="py-4 text-2xl text-center">
+            <div className="py-4 text-2xl" dir='rtl'>
                 <FormTitle text="משתמשים" />
             </div>
-            <div className="">
+            <div>
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500" dir='rtl'>
                     <TableHeader headers={['#', 'שם מלא', 'אימייל', 'סיסמא', 'פלאפון', 'חסימת משתמש',]} />
                     <tbody>
