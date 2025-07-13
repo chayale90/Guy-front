@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react"
 
 
@@ -7,8 +8,17 @@ const WelcomeUser = () => {
     const [userName, setUserName] = useState('');
 
     useEffect(() => {
-        const name = localStorage.getItem('username');
-        if (name) setUserName(name);
+        const token = localStorage.getItem('token');
+        if (!token) return;
+
+        try {
+            const decoded = jwtDecode(token);
+            if (decoded.firstName) {
+                setUserName(decoded.firstName);
+            }
+        } catch (err) {
+            console.error('שגיאה בפענוח הטוקן:', err);
+        }
     }, []);
 
     if (!userName) return null;
