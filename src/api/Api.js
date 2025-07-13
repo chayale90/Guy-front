@@ -162,7 +162,6 @@ export const updateFoodToServer = async (endpoint, data) => {
 
 export const logout = async () => {
     try {
-        await axiosInstance.post('/users/logout');
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
         localStorage.removeItem("username");
